@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lagre data med Firebase</title>
+</head>
+<body>
+
+    <form id="skjema">
+        <input type="text" id="inpAvsender" placeholder="Hva heter du?" required>
+        <input type="text" id="inpTekst" placeholder="Hva mener du?" required>
+        <button type="submit">OK</button>
+    </form>
+
+    <main id="main"></main>
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAt05Zd2whAtEgXtltzznHhY9kYxocHu3A",
+            authDomain: "fagkurs-13033.firebaseapp.com",
+            databaseURL: "https://fagkurs-13033.firebaseio.com",
+            projectId: "fagkurs-13033",
+            storageBucket: "fagkurs-13033.appspot.com",
+            messagingSenderId: "442189804594"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+
+        let database = firebase.database();
+        let meldinger = database.ref("meldinger");
+
+        let skjema = document.getElementById("skjema");
+        let inpTekst = document.getElementById("inpTekst");
+        let inpAvsender = document.getElementById("inpAvsender");
+        let main = document.getElementById("main");
+
+
+
+        function lagreMelding(evt) {
+            evt.preventDefault();
+
+            let melding = {
+                "avsender" : inpAvsender.value,
+                "tekst" : inpTekst.value
+            };
+
+            meldinger.push(melding);
+        }
+
+        function visMelding(snapshot) {
+            let melding = snapshot.val();
+
+            main.innerHTML += melding.avsender + " <b>sier</b> " + melding.tekst + "<br>";
+        }
+
+        skjema.onsubmit = lagreMelding;
+        meldinger.on("child_added", visMelding);
+
+    </script>
+
+</body>
+</html>
