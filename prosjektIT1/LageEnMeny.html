@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hvordan lage en burger-meny?</title>
+
+    <style>
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background-image: url("buksepress.jpg");
+            background-size: cover;
+            background-position: center center;
+        }
+
+        header {
+            height: 60px;
+            line-height: 60px;
+            background-color: black;
+            color: white;
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+
+        #cbVisMeny {
+            display: none;
+        }
+
+        #cbVisMeny:checked ~ #menyen {
+            display: block;
+        }
+
+        #burger {
+            display: flex;
+            position: absolute;
+            left: 10px;
+            top: 15px;
+            width: 40px;
+            height: 30px;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+
+        #burger > div {
+            height: 4px;
+            background-color: whitesmoke;
+            transform-origin: center center;
+            transition: 1s;
+        }
+
+        #cbVisMeny:checked ~ #burger > div:nth-child(1) {
+
+            transform: translateY(13px) rotate(-45deg);
+
+        }
+
+        #cbVisMeny:checked ~ #burger > div:nth-child(2) {
+
+            opacity: 0;
+
+        }
+
+        #cbVisMeny:checked ~ #burger > div:nth-child(3) {
+
+            transform: translateY(-13px) rotate(45deg);
+
+        }
+
+        #menyen {
+            position: absolute;
+            left: -350px;
+            top: 61px;
+            height: calc(100vh - 59px);
+            width: 350px;
+            background-color: #333;
+            text-align: center;
+            transition: 1s;
+        }
+
+        #cbVisMeny:checked ~ #menyen {
+            left: 0;
+        }
+
+        #menyen >  a {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            color: whitesmoke;
+            text-decoration: none;
+            font-family: sans-serif;
+            font-size: 1.5rem;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 60px);
+        }
+        main > img {
+            filter: drop-shadow(2px 2px 2px black);
+            animation: fadeIn 4s;
+        }
+
+        @media (max-width: 600px) {
+            #menyen {
+                width: 100vw;
+                left: -100vw;
+            }
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <header>
+        Press i buksene
+    </header>
+
+    <input type="checkbox" id="cbVisMeny">
+    <label for="cbVisMeny" id="burger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </label>
+    <nav id="menyen">
+
+        <a href="bukser.html">Bukser</a>
+        <a href="kjoler.html">Kjoler</a>
+        <a href="frakker.html">Frakker</a>
+        <a href="dresser.html">Dresser</a>
+
+    </nav>
+    <main>
+        <img src="fugiat.svg">
+    </main>
+
+</body>
+</html>

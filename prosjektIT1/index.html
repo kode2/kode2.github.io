@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Buksepressern</title>
+    <style>
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        * {
+            margin: 0;
+        }
+
+        html {
+            font-size: 16px;
+        }
+        
+        body {
+            min-height: 100vh;
+            background-image: url("buksepress.jpg");
+            background-size: cover;
+            background-position: center center;
+        }
+
+        header {
+            height: 4rem;
+            font-family: "Helvetica Neue", Helvetica, sans-serif;
+            font-size: 1.5rem;
+
+            background-color: black;
+            color: white;
+        }
+
+        main {
+            height: calc(100vh - 60px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        main > img {
+            filter: drop-shadow(2px 2px 2px black);
+            animation: fadeIn 5s;
+        }
+
+        header > h1 {
+            text-align: right;
+            margin-right: 10px;
+        }
+        mark {
+            background-color: lightblue;
+        }
+
+        #meny {
+            position: absolute;
+            left: -20rem;
+            top: 4rem;
+            background-color: #333333;
+            height: calc(100vh - 4rem);
+            width: 20rem;
+            transition: 0.5s;
+        }
+
+        #meny > a {
+            display: block;
+            color: whitesmoke;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        #toggleMenu {
+            display: none;
+        }
+
+        #toggleMenu:checked ~ #meny {
+            left: 0;
+        }
+
+        #lblBurger {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            left: 1rem;
+            top: 1rem;
+            width: 2rem;
+            height: 2rem;
+        }
+
+        #lblBurger > div {
+            height: 2px;
+            background-color: whitesmoke;
+            transform-origin: center center;
+            transition: 0.5s;
+        }
+
+        #toggleMenu:checked ~ #lblBurger > div:nth-child(1) {
+            transform: translateY(15px) rotate(45deg);
+        }
+        #toggleMenu:checked ~ #lblBurger > div:nth-child(2) {
+            opacity: 0;
+        }
+        #toggleMenu:checked ~ #lblBurger > div:nth-child(3) {
+            transform: translateY(-15px) rotate(-45deg);
+        }
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><mark>B</mark>ukse<mark>p</mark>ressen</h1>
+
+        <input type="checkbox" id="toggleMenu">
+        <label id="lblBurger" for="toggleMenu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+
+        <nav id="meny">
+            <a href="bukser.html">Bukser</a>
+            <a href="kjoler.html">Kjoler</a>
+            <a href="frakker.html">Frakker</a>
+            <a href="dresser.html">Dresser</a>
+        </nav>
+
+    </header>
+
+
+
+    <main>
+        <img src="fugiat.svg">
+    </main>
+
+</body>
+</html>
