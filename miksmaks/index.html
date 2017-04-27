@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Oppgave 3</title>
+    <style>
+
+        body {
+            background-color: whitesmoke;
+        }
+        #person {
+            display: flex;
+            flex-direction: column;
+            width: 131px;
+            margin: 20px auto;
+        }
+
+        #modeller {
+            display: flex;
+            flex-wrap: wrap;
+            width: 410px;
+            margin: 5px auto;
+        }
+        #modeller > img {
+            margin: 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="person">
+        <img src="hatt01.png" class="hatt" data-navn="dronning">
+        <img src="hode03.png" class="hode" data-navn="fisker">
+        <img src="kropp02.png" class="kropp" data-navn="superhelt">
+        <img src="ben01.png" class="ben" data-navn="dronning">
+    </div>
+
+    <div id="modeller">
+        <img src="hatt01.png" class="hatt" data-navn="dronning">
+        <img src="hatt02.png" class="hatt" data-navn="superhelt">
+        <img src="hatt03.png" class="hatt" data-navn="fisker">
+
+        <img src="hode01.png" class="hode" data-navn="dronning">
+        <img src="hode02.png" class="hode" data-navn="superhelt">
+        <img src="hode03.png" class="hode" data-navn="fisker">
+
+        <img src="kropp01.png" class="kropp" data-navn="dronning">
+        <img src="kropp02.png" class="kropp" data-navn="superhelt">
+        <img src="kropp03.png" class="kropp" data-navn="fisker">
+
+        <img src="ben01.png" class="ben" data-navn="dronning">
+        <img src="ben02.png" class="ben" data-navn="superhelt">
+        <img src="ben03.png" class="ben" data-navn="fisker">
+    </div>
+
+    <script>
+
+        let modellene = document.querySelectorAll("#modeller > img");
+        let person = document.getElementById("person");
+        let persondeler = document.querySelectorAll("#person > img");
+        let modelldeler = document.querySelectorAll("#modeller > img");
+
+        let hatt = document.querySelector("#person .hatt");
+        let hode = document.querySelector("#person .hode");
+        let kropp = document.querySelector("#person .kropp");
+        let ben = document.querySelector("#person .ben");
+
+
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function scramble() {
+            person.animate([
+                {transform: "scale(1) rotate(0)"},
+                {transform: "scale(1.1) rotate(-2deg)"},
+                {transform: "scale(0.9) rotate(2deg)"},
+                {transform: "scale(1.2) rotate(-2deg)"},
+                {transform: "scale(0.9) rotate(2deg)"},
+                {transform: "scale(1.2) rotate(-2deg)"},
+                {transform: "scale(1) rotate(0)"}
+            ],{
+                duration: 200
+            });
+        }
+
+        function byggNy() {
+            console.log("BYGGER PÅ NYTT");
+
+            for(let del of persondeler) {
+
+                del.animate([
+                    {transform: `translateX(${Math.random() * 200 - 100}px) rotateY(0)`},
+                    {transform: `translateX(0px) rotateY(360deg)`}
+                ], {
+                    duration: Math.random() * 500
+                });
+
+            }
+        }
+
+        function scaleFigur() {
+
+            let animasjon = person.animate([
+                {transform: "scale(1) rotate(0)"},
+                {transform: "scale(2) rotate(0.5turn)"},
+                {transform: "scale(1) rotate(1turn)"}
+            ],{
+                delay: 10,
+                duration: 1000
+            });
+
+            animasjon.onfinish = function() {
+                randomiserFigur();
+                byggNy();
+            }
+
+        }
+
+        function randomiserFigur() {
+
+            let randomHatt = getRandomIntInclusive(0,2);
+            let randomHode = getRandomIntInclusive(3,5);
+            let randomKropp = getRandomIntInclusive(6,8);
+            let randomBen = getRandomIntInclusive(9,11);
+
+            hatt.src = modelldeler[randomHatt].src;
+            hode.src = modelldeler[randomHode].src;
+            kropp.src = modelldeler[randomKropp].src;
+            ben.src = modelldeler[randomBen].src;
+
+            hatt.setAttribute("data-navn", modelldeler[randomHatt].getAttribute("data-navn"));
+            hode.setAttribute("data-navn", modelldeler[randomHode].getAttribute("data-navn"));
+            kropp.setAttribute("data-navn", modelldeler[randomKropp].getAttribute("data-navn"));
+            ben.setAttribute("data-navn", modelldeler[randomBen].getAttribute("data-navn"));
+
+
+        }
+
+        function sjekkFigur() {
+
+            let hatteEier = persondeler[0].getAttribute("data-navn");
+            let hodeEier = persondeler[1].getAttribute("data-navn");
+            let kroppEier = persondeler[2].getAttribute("data-navn");
+            let benEier = persondeler[3].getAttribute("data-navn");
+
+            console.log(hatteEier, hodeEier, kroppEier, benEier);
+
+            return (hatteEier === hodeEier && hatteEier === kroppEier && hatteEier === benEier);
+
+        }
+
+        function byttBilde() {
+
+            let klasse = this.className;
+            let bilde = this.src;
+            let datanavn = this.getAttribute("data-navn");
+
+            let persondel = document.querySelector("#person > img." + klasse);
+
+            let xposTil = persondel.offsetLeft;
+            let yposTil = persondel.offsetTop;
+
+            let xposFra = this.offsetLeft;
+            let yposFra = this.offsetTop;
+
+            let x = xposTil - xposFra;
+            let y = yposTil - yposFra;
+
+            let keyframes = [
+                {transform: `translate(0, 0) scale(1)`},
+                {transform: `translate(${x/2}px, ${y/2}px) scale(2)`},
+                {transform: `translate(${x}px, ${y}px) scale(1)`}
+            ];
+
+            let animasjon = this.animate(keyframes, 1000);
+
+            animasjon.onfinish = function() {
+                persondel.src = bilde;
+                persondel.setAttribute("data-navn", datanavn);
+
+                if(sjekkFigur()){
+                    scaleFigur();
+                } else {
+                    scramble();
+                }
+
+            };
+
+
+
+        }
+
+        for(let modell of modellene) {
+            modell.onclick = byttBilde;
+        }
+
+        randomiserFigur();
+
+    </script>
+</body>
+</html>
