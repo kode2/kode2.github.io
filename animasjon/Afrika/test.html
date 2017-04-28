@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Animasjon</title>
+    <style>
+        body {
+            min-height: 100vh;
+            background-image: url(img1.jpg);
+            background-size: cover;
+            background-position: center center;
+            transition: 1s;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+
+        let bilder = ["img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg", "img5.jpg", "img6.jpg"];
+
+        let indeks = 1;
+
+        function byttBilde() {
+
+            let bilde = bilder[indeks];
+            document.body.style.backgroundImage = `url(${bilde})`;
+
+            indeks++;
+
+            if(indeks >= 6) {
+                indeks = 0;
+            }
+
+        }
+
+        document.onclick = byttBilde;
+
+    </script>
+</body>
+</html>
