@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Min Side</title>
+    <style>
+        * {
+            margin: 0;
+        }
+        html {
+            font-size: 16px;
+        }
+        header {
+            height: 4rem;
+            background-color: black;
+        }
+        #meny {
+            position: absolute;
+            left: -20rem;
+            top: 4rem;
+            width: 20rem;
+            height: calc(100vh - 4rem);
+            background-color: #333;
+            transition: 1s;
+        }
+        #menyAvPaa {
+            display: none;
+        }
+
+        #menyAvPaa:checked ~ #meny {
+            left: 0;
+        }
+
+        #burger {
+            width: 2rem;
+            height: 2rem;
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+        #burger > div {
+            height: 2px;
+            background-color: whitesmoke;
+            transition: 1s;
+        }
+
+        #menyAvPaa:checked ~ #burger > div:nth-child(1) {
+            transform: translateY(15px) rotate(45deg);
+        }
+        #menyAvPaa:checked ~ #burger > div:nth-child(2) {
+            opacity: 0;
+        }
+        #menyAvPaa:checked ~ #burger > div:nth-child(3) {
+            transform: translateY(-15px) rotate(-45deg);
+        }
+    </style>
+</head>
+<body>
+
+    <header></header>
+    <input type="checkbox" id="menyAvPaa">
+    <label for="menyAvPaa" id="burger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </label>
+    <nav id="meny"></nav>
+
+</body>
+</html>
