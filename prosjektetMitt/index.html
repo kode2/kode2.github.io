@@ -38,13 +38,38 @@
         }
 
         #menyAvPaa {
-            position: absolute;
-            left: 1rem;
-            top: 1rem;
+            display: none;
         }
 
         #menyAvPaa:checked ~ #meny {
             left: 0;
+        }
+
+        #menyAvPaa:checked ~ #burger > div:nth-child(1) {
+            transform: translateY(15px) rotate(45deg);
+        }
+        #menyAvPaa:checked ~ #burger > div:nth-child(2) {
+            opacity: 0;
+        }
+        #menyAvPaa:checked ~ #burger > div:nth-child(3) {
+            transform: translateY(-15px) rotate(-45deg);
+        }
+
+        #burger {
+            position: absolute;
+            width: 2rem;
+            height: 2rem;
+            left: 1rem;
+            top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        #burger > div {
+            height: 2px;
+            background-color: whitesmoke;
+            transition: 0.5s;
         }
 
     </style>
@@ -54,6 +79,11 @@
     <header></header>
 
     <input type="checkbox" id="menyAvPaa">
+    <label id="burger" for="menyAvPaa">
+        <div></div>
+        <div></div>
+        <div></div>
+    </label>
     <nav id="meny"></nav>
 
     <script>
@@ -79,7 +109,7 @@
             }
         }
 
-        setInterval(byttBilde, 2000);
+        setInterval(byttBilde, 8000);
 
         
     </script>
