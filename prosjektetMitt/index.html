@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Afrika</title>
+    <style>
+
+        * {
+            margin: 0;
+        }
+
+        html {
+            font-size: 16px;
+        }
+        
+        body {
+            min-height: 100vh;
+            background-image: url("https://kode2.github.io/animasjon/Afrika/img1.jpg");
+            background-size: cover;
+            background-position: center center;
+            transition: 1s;
+        }
+
+        header {
+            height: 4rem;
+            background-color: black;
+        }
+
+        #meny {
+            position: absolute;
+            top: 4rem;
+            left: -20rem;
+            width: 20rem;
+            height: calc(100vh - 4rem);
+            background-color: #333333;
+            transition: 0.5s;
+        }
+
+        #menyAvPaa {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+        }
+
+        #menyAvPaa:checked ~ #meny {
+            left: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header></header>
+
+    <input type="checkbox" id="menyAvPaa">
+    <nav id="meny"></nav>
+
+    <script>
+
+        let bilder = [
+            "https://kode2.github.io/animasjon/Afrika/img1.jpg",
+            "https://kode2.github.io/animasjon/Afrika/img2.jpg",
+            "https://kode2.github.io/animasjon/Afrika/img3.jpg",
+            "https://kode2.github.io/animasjon/Afrika/img4.jpg",
+            "https://kode2.github.io/animasjon/Afrika/img5.jpg",
+            "https://kode2.github.io/animasjon/Afrika/img6.jpg"
+        ];
+
+        let bildenummer = 1;
+
+        function byttBilde() {
+            let bilde = bilder[bildenummer];
+            document.body.style.backgroundImage = "url(" + bilde + ")";
+            bildenummer++;
+
+            if(bildenummer >= bilder.length) {
+                bildenummer = 0;
+            }
+        }
+
+        setInterval(byttBilde, 2000);
+
+        
+    </script>
+
+</body>
+</html>
