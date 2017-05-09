@@ -1,0 +1,92 @@
+{
+  "varer" : {
+    "bukser" : {
+      "vare_bukse_001" : {
+        "merke" : "Superdry",
+        "navn" : "Army Jeans",
+        "pris" : "350",
+        "bilde" : "bukse_0001.jpg",
+        "type" : "bukser"
+      },
+      "vare_bukse_002" : {
+        "merke" : "Lee",
+        "navn" : "Longpants",
+        "pris" : "550",
+        "bilde" : "bukse_0002.jpg",
+        "type" : "bukser"
+      },
+      "vare_bukse_003" : {
+        "merke" : "Levis",
+        "navn" : "Superbuksa",
+        "pris" : "850",
+        "bilde" : "bukse_0003.jpg",
+        "type" : "bukser"
+      },
+      "vare_bukse_004" : {
+        "merke" : "Levis",
+        "navn" : "Superbuksa",
+        "pris" : "850",
+        "bilde" : "bukse_0004.jpg",
+        "type" : "bukser"
+      },
+      "vare_bukse_005" : {
+        "merke" : "Levis",
+        "navn" : "Superbuksa",
+        "pris" : "850",
+        "bilde" : "bukse_0005.jpg",
+        "type" : "bukser"
+      },
+      "vare_bukse_006" : {
+        "merke" : "Levis",
+        "navn" : "Superbuksa",
+        "pris" : "850",
+        "bilde" : "bukse_0006.jpg",
+        "type" : "bukser"
+      },
+      "vare_bukse_007" : {
+        "merke" : "Levis",
+        "navn" : "Superbuksa",
+        "pris" : "850",
+        "bilde" : "bukse_0007.jpg",
+        "type" : "bukser"
+      },
+      "vare_bukse_008" : {
+        "merke" : "Levis",
+        "navn" : "Superbuksa",
+        "pris" : "850",
+        "bilde" : "bukse_0008.jpg",
+        "type" : "bukser"
+      },
+      "vare_bukse_009" : {
+        "merke" : "Levis",
+        "navn" : "Superbuksa",
+        "pris" : "850",
+        "bilde" : "bukse_0009.jpg",
+        "type" : "bukser"
+      }
+    },
+    "skjorter" : {
+      "vare_skjorte_001" : {
+        "merke" : "Bomullsfabrikken",
+        "navn" : "Strykefri",
+        "pris" : "650",
+        "bilde" : "skjorte_0001.jpg",
+        "type" : "skjorter"
+      },
+      "vare_skjorte_002" : {
+        "merke" : "Sand",
+        "navn" : "Strekkern",
+        "pris" : "950",
+        "bilde" : "skjorte_0002.jpg",
+        "type" : "skjorter"
+      },
+      "vare_skjorte_003" : {
+        "merke" : "Sandberg",
+        "navn" : "Store ruter",
+        "pris" : "620",
+        "bilde" : "skjorte_0003.jpg",
+        "type" : "skjorter"
+      }
+    }
+  }
+}
