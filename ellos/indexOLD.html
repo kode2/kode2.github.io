@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ELLOS SUPERSTORE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.min.css">
+    <style>
+        nav {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        }
+        main {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-column-gap: 10px;
+            grid-row-gap: 10px;
+        }
+        main > article > img {
+            width: 100%;
+        }
+        h1 {
+            font-size: 1.25rem;
+        }
+
+        #handlekurven {
+            display: none;
+        }
+        
+        @media (max-width: 1000px) {
+            main {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 800px) {
+            main {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            nav {
+                grid-template-columns: 1fr;
+            }
+            nav > .button {
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <button class="button" id="btnAlle">Alle varer</button>
+            <button class="button success" id="btnBukser">Bukser</button>
+            <button class="button" id="btnSkjorter">Skjorter</button>
+            <button class="button success" id="btnHandlekurv">Handlekurv(<b id="antallVarer">0</b>)</button>
+            <button class="button warning" id="btnSlettKurv">Tøm handlekurv</button>
+        </nav>
+        <article id="handlekurven" class="callout"></article>
+    </header>
+
+    <main></main>
+
+    <footer></footer>
+
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyD7FS8R-au_1gSp57YuQIjiAGIoZL5rUZw",
+            authDomain: "min-database.firebaseapp.com",
+            databaseURL: "https://min-database.firebaseio.com",
+            projectId: "min-database",
+            storageBucket: "min-database.appspot.com",
+            messagingSenderId: "614855754958"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+
+        let db = firebase.database();
+        let handlekurv = db.ref("ellos/handlekurv");
+        let bukser = db.ref("ellos/varer/bukser");
+        let skjorter = db.ref("ellos/varer/skjorter");
+
+        // HTML-elementer
+        let main = document.querySelector("main");
+        let btnAlle = document.getElementById("btnAlle");
+        let btnSkjorter = document.getElementById("btnSkjorter");
+        let btnBukser = document.getElementById("btnBukser");
+        let btnHandlekurv = document.getElementById("btnHandlekurv");
+        let btnSlettKurv = document.getElementById("btnSlettKurv");
+
+        handlekurven.style.display = "none";
+
+
+        function handle(vareRef) {
+            // Legger til en ny vare i handlekurven
+            handlekurv.push({
+                antall: 1,
+                vare: vareRef,
+                tid: firebase.database.ServerValue.TIMESTAMP
+            });
+
+            // Liten animasjon som markerer at det skjer noe med handlekurven
+            btnHandlekurv.animate([
+                {transform: "scale(1)"},
+                {transform: "scale(1.2)"},
+                {transform: "scale(1)"},
+            ], {
+                duration: 200
+            });
+        }
+
+        function visVarer(snapshot) {
+            let vare = snapshot.val();
+            let parent = snapshot.ref.parent;
+            let vareid = snapshot.key;
+            let vareRef = parent + "/" + vareid;
+            main.innerHTML += `
+                <article>
+                    <img src="bilder/${vare.bilde}">
+                    <h1>${vare.merke} ${vare.navn} - kr <mark>${vare.pris}</mark></h1>
+                    <button class="button" onclick="handle('${vareRef}')">Legg i handlekurv</button>
+                </article>
+            `;
+        }
+
+        function visSkjorter() {
+            main.innerHTML = "";
+            skjorter.on("child_added", visVarer);
+        }
+        function visBukser() {
+            main.innerHTML = "";
+            bukser.on("child_added", visVarer);
+        }
+        function visAlle() {
+            main.innerHTML = "";
+            bukser.on("child_added", visVarer);
+            skjorter.on("child_added", visVarer);
+        }
+
+        function oppdaterAntall(snap) {
+            antallVarer.innerHTML = snap.numChildren();
+        }
+
+        function visHandlekurv() {
+            if(handlekurven.style.display == "none") {
+                handlekurven.style.display = "block";
+            } else {
+                handlekurven.style.display = "none";
+            }
+
+        }
+
+        function oppdaterHandlekurv(snap) {
+            let handel = snap.val();
+            handlekurven.innerHTML += `
+                <p>${handel.vare}</p>
+            `;
+        }
+
+        function slettHandlekurv() {
+            handlekurv.remove();
+            handlekurven.innerHTML = "";
+        }
+
+        // Når siden lastes inn viser vi alle skjortene
+        skjorter.on("child_added", visVarer);
+
+        // Oppdaterer antall varer i handlekurven når det legges inn en ny vare
+        handlekurv.on("value", oppdaterAntall);
+
+        btnSkjorter.onclick = visSkjorter;
+        btnBukser.onclick = visBukser;
+        btnAlle.onclick = visAlle;
+        btnSlettKurv.onclick = slettHandlekurv;
+        btnHandlekurv.onclick = visHandlekurv;
+        handlekurv.on("child_added", oppdaterHandlekurv);
+
+    </script>
+
+</body>
+</html>
