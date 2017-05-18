@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bilkonfigurator</title>
+</head>
+<body>
+
+    <h1>Velg flytur</h1>
+    Eksklusiv <input type="radio" name="rbFly" onclick="minReise.fly = eksklusiv.fly; beregnPris(); console.log(minReise);">
+    Moderat <input type="radio" name="rbFly" onclick="minReise.fly = moderat.fly; beregnPris(); console.log(minReise);">
+
+    <h1>Velg hotell</h1>
+    Eksklusiv
+
+    <script>
+
+        let eksklusiv = {
+            fly : {
+                klasse: "Super business",
+                pris: 40000,
+                beskrivelse: "Tre-retters og sovestol"
+            },
+            hotell : {
+                navn: "Hotell Luxor",
+                pris: 60000
+            },
+            leiebil : {
+                type: "Rolls Royce",
+                pris: 50000
+            }
+        };
+
+        let moderat = {
+            fly : {
+                klasse: "Comfort",
+                pris: 20000,
+                beskrivelse: "Pizza og øl"
+            },
+            hotell : {
+                navn: "Hotel Sun",
+                pris: 40000
+            },
+            leiebil : {
+                type: "Audi",
+                pris: 30000
+            }
+        };
+
+        // Ingenting er valg ennå
+        let minReise = {};
+
+        minReise.fly = eksklusiv.fly;
+        minReise.hotell = moderat.hotell;
+        minReise.leiebil = moderat.leiebil;
+
+        function beregnPris() {
+
+            minReise.pris = 0;
+            if(minReise.fly) {
+                minReise.pris += minReise.fly.pris;
+            }
+            if(minReise.hotell) {
+                minReise.pris += minReise.hotell.pris;
+            }
+            if(minReise.leiebil) {
+                minReise.pris += minReise.leiebil.pris;
+            }
+
+        }
+
+        beregnPris();
+        console.log(minReise);
+
+    </script>
+
+
+</body>
+</html>

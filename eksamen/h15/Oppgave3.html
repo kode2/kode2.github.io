@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Beregn ditt snitt</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.min.css">
+    <style>
+        body {
+            padding: 10px;
+            max-width: 700px;
+            margin: auto;
+        }
+        [type=text], [type=number] {
+            margin-bottom: 0;
+        }
+        [type=number] {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Beregn ditt snitt</h1>
+    <form id="skjema">
+        <table class="tiny">
+            <thead>
+                <tr>
+                    <th>Fag</th>
+                    <th>Karakter</th>
+                </tr>
+            </thead>
+            <tbody id="tabell">
+            </tbody>
+        </table>
+        <button class="button expanded" type="submit">Sjekk snittet ditt</button>
+    </form>
+
+    <script>
+
+        let skjema = document.getElementById("skjema");
+
+
+        let fagene = [
+            {navn: "Engelsk"},
+            {navn: "Geografi"},
+            {navn: "Historie VG3"},
+            {navn: "Kroppsøving"},
+            {navn: "Naturfag"},
+            {navn: "Matematikk"},
+            {navn: "Norsk skriftlig"},
+            {navn: "Nynorsk"},
+            {navn: "Norsk muntlig"},
+            {navn: "Kristendom"},
+            {navn: "Samfunnsfag"},
+            {navn: "", type: "Programfag"},
+            {navn: "", type: "Programfag"},
+            {navn: "", type: "Programfag"},
+            {navn: "", type: "Programfag"},
+            {navn: "", type: "Programfag"},
+            {navn: "", type: "Programfag"},
+            {navn: "", type: "Eksamen"},
+            {navn: "", type: "Eksamen"},
+            {navn: "", type: "Eksamen"},
+            {navn: "", type: "Eksamen"},
+            {navn: "", type: "Eksamen"}
+        ];
+
+
+        function lagTabell() {
+            tabell.innerHTML = "";
+            for(let [i, fag] of fagene.entries()) {
+                if(fag.type) {
+                    tabell.innerHTML += `
+                    <tr>
+                        <td>
+                            <input value="${fag.navn}" onchange="settNavn(this.value, ${i})" type="text" required placeholder="${fag.type}">
+                        </td>
+                        <td>
+                            <input value="${fag.karakter}" onchange="settKarakter(this.value, ${i})" type="number" placeholder="1-6" min="1" max="6" required>
+                        </td>
+                    </tr>
+                `;
+                } else {
+                    tabell.innerHTML += `
+                        <tr>
+                            <td>${fag.navn}</td>
+                            <td>
+                                <input value="${fag.karakter}" onchange="settKarakter(this.value, ${i})" type="number" placeholder="1-6" min="1" max="6" required>
+                            </td>
+                        </tr>
+                    `
+                }
+            }
+        }
+
+
+
+        function settNavn(navn, i) {
+            fagene[i].navn = navn;
+            console.log(fagene[i]);
+        }
+
+        function settKarakter(karakter, i) {
+            fagene[i].karakter = Number(karakter);
+            console.log(fagene[i]);
+        }
+
+
+        function beregnPoeng(evt) {
+            evt.preventDefault();
+
+            fagene.sort(function(a, b) {
+                return b.karakter - a.karakter;
+            });
+
+            lagTabell();
+
+
+        }
+
+        skjema.onsubmit = beregnPoeng;
+        lagTabell();
+
+    </script>
+</body>
+</html>

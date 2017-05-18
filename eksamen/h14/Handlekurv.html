@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Handlekurv</title>
+</head>
+<body>
+
+    <script>
+
+        let handlekurv = []; // Et tomt objekt
+
+        let tannkrem = {
+            navn: "Solidox",
+            type: "Frisk Pust",
+            pris: 32
+        };
+
+        let sodd = {
+            navn: "Sodd på boks",
+            type: "Kraftig smak",
+            pris: 84
+        };
+
+        // Kjøper tre tannkremer
+
+        let tannkremhandel = {
+            antall : 3,
+            vare : tannkrem
+        };
+
+        // Kjøper 8 bokse sodd
+        let soddHandel = {
+            antall: 8,
+            vare: sodd
+        };
+
+        handlekurv.push(tannkremhandel);
+        handlekurv.push(soddHandel);
+
+        console.log(handlekurv);
+
+    </script>
+</body>
+</html>

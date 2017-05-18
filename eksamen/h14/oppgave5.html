@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Oppgave 5</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.css">
+    <style>
+        body {
+            max-width: 700px;
+            margin: auto;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="skjema">
+        <select id="selModell" required>
+            <option value="">Velg modell</option>
+        </select>
+
+        <section id="velgVersjon">
+
+        </section>
+
+        <section id="velgPakke"></section>
+
+        <button type="submit">OK</button>
+    </form>
+
+    <div id="info"></div>
+
+    <script>
+
+        // DOM-elementer
+        let skjema = document.getElementById("skjema");
+        let selModell = document.getElementById("selModell");
+        let velgVersjon = document.getElementById("velgVersjon");
+        let velgPakke = document.getElementById("velgPakke");
+        let info = document.getElementById("info");
+
+
+        let bil = {};
+        let konfigurertBil = {};
+
+        // Datastruktur
+        var biler = [
+            {
+                "modell" : "Kuga",
+                "versjoner" : [
+                    {"navn" : "Trend", "pris" : 401000},
+                    {"navn" : "Titanum", "pris" : 420000}
+                ],
+                "pakker" : [
+                    {"navn" : "Familiepakke", "pris" : 1000},
+                    {"navn" : "Førerassistentpakke", "pris" : 10200},
+                    {"navn" : "Stilpakke", "pris" : 9200}
+                ],
+            },
+            {
+                "modell" : "C-Max",
+                "versjoner" : [
+                    {"navn" : "Trend", "pris" : 320000},
+                    {"navn" : "Titanum", "pris" : 335000}
+                ],
+                "pakker" : [
+                    {"navn" : "Familiepakke", "pris" : 1000},
+                    {"navn" : "Førerassistentpakke", "pris" : 9400},
+                    {"navn" : "Stilpakke", "pris" : 3600}
+                ],
+            },
+            {
+                "modell" : "Focus",
+                "versjoner" : [
+                    {"navn" : "Trend", "pris" : 255000},
+                    {"navn" : "Titanum", "pris" : 355000}
+                ],
+                "pakker" : [
+                    {"navn" : "Familiepakke", "pris" : 900},
+                    {"navn" : "Førerassistentpakke", "pris" : 12500},
+                    {"navn" : "Stilpakke", "pris" : 9000}
+                ],
+            },
+            {
+                "modell" : "Mondeo",
+                "versjoner" : [
+                    {"navn" : "Trend", "pris" : 281000},
+                    {"navn" : "Titanum", "pris" : 315000}
+                ],
+                "pakker" : [
+                    {"navn" : "Familiepakke", "pris" : 1100},
+                    {"navn" : "Førerassistentpakke", "pris" : 9900},
+                    {"navn" : "Stilpakke", "pris" : 7200}
+                ],
+            }
+        ];
+
+        function visPris() {
+
+            info.innerHTML = JSON.stringify(konfigurertBil);
+
+        }
+
+
+
+        function settVersjon(indeks) {
+            konfigurertBil.versjon = bil.versjoner[indeks];
+
+            console.log(konfigurertBil);
+
+            visPris();
+        }
+
+        function settPakker() {
+
+            let valgte = document.querySelectorAll("input[name=cbPakke]:checked");
+
+            konfigurertBil.pakker = [];
+            for(let valgt of valgte) {
+                konfigurertBil.pakker.push(bil.pakker[valgt.value]);
+            }
+
+            console.log(konfigurertBil);
+            visPris();
+
+        }
+
+        function visAlternativer() {
+
+            if(this.value === "") return;
+
+            bil = biler[this.value];
+            console.log(bil);
+            konfigurertBil.modell = bil.modell;
+
+            console.log(konfigurertBil);
+
+            // Velg versjon
+            velgVersjon.innerHTML = "";
+            for(let [indeks, versjon] of bil.versjoner.entries()) {
+                velgVersjon.innerHTML += `${versjon.navn} <input type="radio" name="rbVersjon" onclick="settVersjon(${indeks})">`;
+            }
+
+            // Velg pakker
+            velgPakke.innerHTML = "";
+            for(let [indeks, pakke] of bil.pakker.entries()) {
+                velgPakke.innerHTML += `${pakke.navn} <input type="checkbox" name="cbPakke" onchange="settPakker()" value="${indeks}">`;
+
+            }
+
+        }
+
+        function init() {
+
+            for(let [indeks, bil] of biler.entries()) {
+
+                selModell.innerHTML += `<option value="${indeks}">${bil.modell}</option>`;
+                selModell.onchange = visAlternativer;
+
+            }
+
+        }
+
+        init();
+
+    </script>
+</body>
+</html>

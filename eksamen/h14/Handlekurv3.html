@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Handlekurv</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.css">
+    <style>
+        body {
+            max-width: 800px;
+            margin: auto;
+            padding: 10px;
+        }
+        #tabell > tr:last-child > td {
+            background-color: beige;
+            border-top: 2px solid brown;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <thead>
+        <tr>
+            <th>Vare</th>
+            <th>Antall</th>
+        </tr>
+    </thead>
+    <tbody id="vareliste"></tbody>
+</table>
+
+<table>
+    <thead>
+    <tr>
+        <th>Vare</th>
+        <th>Antall</th>
+        <th>Pris</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody id="tabell"></tbody>
+</table>
+
+<script>
+
+    let tabell = document.getElementById("tabell");
+    let vareliste = document.getElementById("vareliste");
+
+
+    let handlekurv = new Map(); // Et tomt objekt
+
+    let varer = new Map();
+    varer.set (123456,
+        {
+            varenr: 123456,
+            navn: "Solidox",
+            type: "Frisk Pust",
+            pris: 32
+        });
+    varer.set (4234324,
+        {
+            varenr: 4234324,
+            navn: "Sodd på boks",
+            type: "Kraftig smak",
+            pris: 8
+        });
+    varer.set (234234243, {
+        varenr: 234234243,
+        navn: "Opel",
+        type: "Ascona",
+        pris: 200000
+    });
+    varer.set (324324, {
+        varenr: 324324,
+        navn: "Prim",
+        type: "Ekstra god",
+        pris: 32
+    });
+
+
+    function leggVarerIKurv(varenr, antall) {
+        let varen = varer.get(varenr);
+        let ant = Number(antall);
+        let handel = {
+            antall: ant,
+            vare: varen
+        };
+        handlekurv.set(varenr, handel);
+        console.log(handlekurv);
+
+        visKvittering();
+
+    }
+
+    function init() {
+
+        for(let vare of varer.values()){
+
+            vareliste.innerHTML += `
+                <tr>
+                    <td>${vare.navn} ${vare.type}</td>
+                    <td>
+                        <input oninput="leggVarerIKurv(${vare.varenr}, this.value)" type="number" min="0" max="100" value="0">
+                    </td>
+                </tr>
+            `;
+
+        }
+
+    }
+
+    init();
+
+
+    function visKvittering() {
+        let sum = 0;
+        tabell.innerHTML = "";
+        for(let handel of handlekurv.values()) {
+            sum += handel.antall * handel.vare.pris;
+            tabell.innerHTML += `
+                    <tr>
+                        <td>${handel.vare.navn} ${handel.vare.type}</td>
+                        <td>${handel.antall}</td>
+                        <td>${handel.vare.pris}</td>
+                        <td>${handel.vare.pris * handel.antall}</td>
+                    </tr>
+                `;
+        }
+
+        tabell.innerHTML += `
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Sum: </td>
+                    <td>${sum}</td>
+                </tr>
+            `;
+
+
+    }
+
+
+
+</script>
+</body>
+</html>

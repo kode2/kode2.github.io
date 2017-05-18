@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Matbutikken</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.css">
+    <style>
+        body {
+            max-width: 700px;
+            margin: auto;
+            padding: 10px;
+        }
+        th:last-child {
+            width: 80px;
+        }
+        #varetabell > tr > td > input {
+            margin: 0;
+            width: 60px;
+        }
+        #handlekurvtabell > tr:last-child > td {
+            background-color: beige;
+            border-top: 4px solid brown;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Varenavn</th>
+                <th>Pris</th>
+                <th>Antall</th>
+            </tr>
+        </thead>
+        <tbody id="varetabell">
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Varenavn</th>
+                <th>Pris</th>
+                <th>Antall</th>
+                <th>Sum</th>
+            </tr>
+        </thead>
+        <tbody id="handlekurvtabell"></tbody>
+    </table>
+
+    <script>
+
+        // DOM-elementer
+        let varetabell = document.getElementById("varetabell");
+        let handlekurvtabell = document.getElementById("handlekurvtabell");
+
+
+        let varer = new Map();
+        let handlekurv = new Map();
+
+        varer.set(100, {
+            varenummer: 100,
+            navn: "Prim",
+            pris: 25
+        });
+
+        varer.set(103, {
+            varenummer: 103,
+            navn: "Gulost",
+            pris: 32
+        });
+
+        varer.set(109, {
+            varenummer: 109,
+            navn: "Julebrus",
+            pris: 18
+        });
+
+        function lagTabell() {
+
+            for(let vare of varer.values()) {
+                varetabell.innerHTML += `
+                    <tr>
+                        <td>${vare.navn}</td>
+                        <td>${vare.pris}</td>
+                        <td>
+                            <input
+                                type="number" min="0" max="100" value="0"
+                                oninput="leggVareIKurv(this.value, ${vare.varenummer})">
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        lagTabell();
+
+        function visHandlekurv() {
+            let total = 0;
+            handlekurvtabell.innerHTML = "";
+            for(let handel of handlekurv.values()) {
+                total += handel.antall * handel.vare.pris;
+                handlekurvtabell.innerHTML += `
+                    <tr>
+                        <td>${handel.vare.navn}</td>
+                        <td>${handel.vare.pris}</td>
+                        <td>${handel.antall}</td>
+                        <td>${handel.antall * handel.vare.pris}</td>
+                    </tr>
+                `;
+            }
+            handlekurvtabell.innerHTML += `
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Total:</td>
+                    <td>${total}</td>
+                </tr>
+            `;
+        }
+
+        function leggVareIKurv(antall, varenummer) {
+            if(antall <= 0) {
+                handlekurv.delete(varenummer);
+            } else {
+
+                handlekurv.set(varenummer, {
+                    vare: varer.get(varenummer),
+                    antall: antall
+                });
+
+            }
+
+            visHandlekurv();
+        }
+
+
+
+    </script>
+</body>
+</html>

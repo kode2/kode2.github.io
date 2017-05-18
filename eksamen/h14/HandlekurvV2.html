@@ -3,38 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kolonialbutikken på nett</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.min.css">
+    <title>Matbutikken</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.css">
     <style>
         body {
             max-width: 800px;
             margin: auto;
             padding: 10px;
         }
-
-        th:last-child {
-            width: 100px;
+        thead > tr th:last-child {
+            width: 80px;
         }
-        tr > td:last-child > input {
+        #varetabell > tr > td > input {
+            width: 80px;
             margin: 0;
         }
-
-
-        #helekurven {
-            margin-top: 20px;
-            border-top: 6px solid lightskyblue;
-            display: none;
-        }
-
         #handlekurvtabell > tr:last-child > td {
             background-color: beige;
-            font-weight: bold;
             border-top: 6px solid brown;
+            font-weight: bold;
         }
-        #info {
-            display: block;
-        }
-
     </style>
 </head>
 <body>
@@ -44,13 +32,13 @@
             <tr>
                 <th>Varenavn</th>
                 <th>Pris</th>
-                <th>Kjøp</th>
+                <th>Antall</th>
             </tr>
         </thead>
         <tbody id="varetabell"></tbody>
     </table>
 
-    <table id="helekurven">
+    <table>
         <thead>
             <tr>
                 <th>Varenavn</th>
@@ -62,50 +50,45 @@
         <tbody id="handlekurvtabell"></tbody>
     </table>
 
-    <div id="info" class="callout success">Handlekurven er tom</div>
 
     <script>
 
-        // Referanser til HTML-elementer
+        // DOM-elementer
         let varetabell = document.getElementById("varetabell");
         let handlekurvtabell = document.getElementById("handlekurvtabell");
-        let helekurven = document.getElementById("helekurven");
-        let info = document.getElementById("info");
 
 
         let varer = new Map();
         let handlekurv = new Map();
 
-        varer.set(123456, {
-            navn: "Gulost",
-            pris: 47
-        });
-
-        varer.set(324, {
+        varer.set(100, {
+            varenummer: 100,
             navn: "Prim",
-            pris: 20
+            pris: 22
         });
 
-        varer.set(325, {
-            navn: "Kaviar",
-            pris: 40
+        varer.set(103, {
+            varenummer: 103,
+            navn: "Gulost",
+            pris: 32
         });
+
+        varer.set(109, {
+            varenummer: 109,
+            navn: "Julebrus",
+            pris: 18
+        });
+
 
         function oppdaterHandlekurv() {
-
-            if(handlekurv.size === 0) {
-                info.style.display = "block";
-                helekurven.style.display = "none";
-            } else {
-                info.style.display = "none";
-                helekurven.style.display = "table";
-            }
-
             let total = 0;
 
             handlekurvtabell.innerHTML = "";
-            for(let [key, handel] of handlekurv) {
-                total += handel.antall * handel.vare.pris;
+
+            for(let handel of handlekurv.values()) {
+
+                total += handel.vare.pris * handel.antall;
+
                 handlekurvtabell.innerHTML += `
                     <tr>
                         <td>${handel.vare.navn}</td>
@@ -114,61 +97,61 @@
                         <td>${handel.antall * handel.vare.pris}</td>
                     </tr>
                 `;
+
             }
 
             handlekurvtabell.innerHTML += `
                 <tr>
                     <td></td>
                     <td></td>
-                    <td>Sum: </td>
+                    <td>Totalsum</td>
                     <td>${total}</td>
                 </tr>
             `;
 
         }
 
-        function leggVareIHandlekurv(ant, varenummer) {
+        function leggVareIHandlekurv(varenummer, antallVarer) {
+            let ant = Number(antallVarer);
 
-            if(Number(ant) === 0) {
+            if(ant === 0) {
                 handlekurv.delete(varenummer);
             } else {
 
                 handlekurv.set(varenummer, {
-                    antall: Number(ant),
+                    antall: ant,
                     vare: varer.get(varenummer)
                 });
 
             }
+
             oppdaterHandlekurv();
+
+
         }
 
+        function visVarer() {
 
-        function lagVaretabell() {
+            for(let vare of varer.values()) {
 
-            for (let [varenr, vare] of varer) {
                 varetabell.innerHTML += `
                     <tr>
                         <td>${vare.navn}</td>
                         <td>${vare.pris}</td>
                         <td>
-                            <input
-                                oninput="leggVareIHandlekurv(this.value, ${varenr})"
-                                type="number" min="0" max="100" value="0">
+                            <input oninput="leggVareIHandlekurv(${vare.varenummer}, this.value)" type="number" min="0" max="100" value="0">
                         </td>
                     </tr>
                 `;
+
             }
+
 
         }
 
-        lagVaretabell();
+        visVarer();
 
 
-        // Sletter Kaviar
-        //varer.delete(325);
-
-        // Finner kaviar:
-        //varer.get(325);
 
 
     </script>
