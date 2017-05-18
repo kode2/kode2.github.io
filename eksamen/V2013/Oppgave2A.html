@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Oppgave 2</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        article {
+            margin-top: 10px;
+        }
+
+        input[type=number] {
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Beregn BMR</h1>
+    <form id="skjema">
+        <label for="inpVekt">Oppgi din vekt</label>
+        <input type="number" placeholder="vekt i kg" id="inpVekt" required min="10" max="200">
+        <button type="submit">Beregn BMR</button>
+    </form>
+    <article id="info"></article>
+
+    <script>
+
+        let skjema = document.getElementById("skjema");
+        let inpVekt = document.getElementById("inpVekt");
+        let info = document.getElementById("info");
+
+        // Funksjon som beregner BMR
+        // Bruker verdien som brukeren skriver inn i input-feltet inpVekt
+        function beregnBMR(evt) {
+            evt.preventDefault();
+            let vekt = Number(inpVekt.value);
+            let bmr = 35.27 + (0.558 * vekt);
+
+            // Viser BMR med to desimaler
+            info.innerHTML = `Din BMR er <b>${bmr.toFixed(2)}</b>`;
+        }
+
+        skjema.onsubmit = beregnBMR;
+
+
+        /*
+
+         Lag en applikasjon som
+         a) beregner BMR for en time for en gutt som er 18 år og 180 cm høy. Brukeren skal kunne oppgi vekten sin. Formelen for å beregne BMR for en time for denne gutten er:
+         BMR = 35.27 + (0.558 * vekt)
+         b) beregner energiforbruket til gutten når han enten sitter stille eller går en tur. Brukeren skal kunne velge mellom aktivitetstypene. PAL-verdien er på 1.2 når gutten sitter stille, og 1.4 når han går en tur. Dersom du multipliserer BMR med PAL-verdien, får du energiforbruket. (Energiforbruk blir oppgitt i kcal.)
+         Energiforbruk = BMR * PAL
+
+         */
+
+
+
+    </script>
+</body>
+</html>
