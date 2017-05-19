@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registrer nye varer</title>
+</head>
+<body>
+
+    <form id="skjema">
+
+        <label for="inpBilde">Skriv inn filnavn til et bilde</label>
+        <input type="text" id="inpBilde" required placeholder="filnavn">
+
+        <label for="inpMerke">Klesmerke</label>
+        <input type="text" id="inpMerke" required placeholder="klesmerke">
+
+        <label for="inpNavn">Navn på plagget</label>
+        <input type="text" id="inpNavn" required placeholder="navn på plagg">
+
+        <label for="inpPris">Skriv inn filnavn til et bilde</label>
+        <input type="number" id="inpPris" required placeholder="pris i nok">
+
+        <button type="submit">Registrer ny vare</button>
+
+    </form>
+
+    <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyD7FS8R-au_1gSp57YuQIjiAGIoZL5rUZw",
+            authDomain: "min-database.firebaseapp.com",
+            databaseURL: "https://min-database.firebaseio.com",
+            projectId: "min-database",
+            storageBucket: "min-database.appspot.com",
+            messagingSenderId: "614855754958"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+
+        let db = firebase.database();
+        let skjorter = db.ref("ellos/varer/skjorter");
+
+        let skjema = document.getElementById("skjema");
+        let inpBilde = document.getElementById("inpBilde");
+        let inpMerke = document.getElementById("inpMerke");
+        let inpNavn = document.getElementById("inpNavn");
+        let inpPris = document.getElementById("inpPris");
+
+        function registrerVare(evt) {
+            evt.preventDefault(); // Forhindrer skjemaet fra å oppdatere siden
+
+            let vare = {
+                "bilde" : inpBilde.value,
+                "merke" : inpMerke.value,
+                "navn" : inpNavn.value,
+                "pris" : Number(inpPris.value)
+            };
+
+            skjorter.push(vare);
+
+        }
+
+        skjema.onsubmit = registrerVare;
+
+    </script>
+
+
+</body>
+</html>
