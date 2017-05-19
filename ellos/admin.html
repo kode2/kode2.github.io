@@ -9,6 +9,13 @@
 
     <form id="skjema">
 
+        <select id="selVaretype" required>
+            <option value="">Varetype</option>
+            <option value="bukser">Bukser</option>
+            <option value="skjorter">Skjorter</option>
+            <option value="vester">Vester</option>
+        </select>
+
         <label for="inpBilde">Skriv inn filnavn til et bilde</label>
         <input type="text" id="inpBilde" required placeholder="filnavn">
 
@@ -43,8 +50,10 @@
 
         let db = firebase.database();
         let skjorter = db.ref("ellos/varer/skjorter");
+        let bukser = db.ref("ellos/varer/bukser")
 
         let skjema = document.getElementById("skjema");
+        let selVaretype = document.getElementById("selVaretype");
         let inpBilde = document.getElementById("inpBilde");
         let inpMerke = document.getElementById("inpMerke");
         let inpNavn = document.getElementById("inpNavn");
@@ -53,6 +62,8 @@
         function registrerVare(evt) {
             evt.preventDefault(); // Forhindrer skjemaet fra å oppdatere siden
 
+            let klestype = db.ref("ellos/varer/" + selVaretype.value);
+
             let vare = {
                 "bilde" : inpBilde.value,
                 "merke" : inpMerke.value,
@@ -60,7 +71,7 @@
                 "pris" : Number(inpPris.value)
             };
 
-            skjorter.push(vare);
+            klestype.push(vare);
 
         }
 
