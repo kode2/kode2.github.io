@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registrer nye varer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.min.css">
+    <style>
+        body {
+            padding: 10px;
+            max-width: 970px;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
 
@@ -28,9 +36,11 @@
         <label for="inpPris">Skriv inn filnavn til et bilde</label>
         <input type="number" id="inpPris" required placeholder="pris i nok">
 
-        <button type="submit">Registrer ny vare</button>
+        <button class="button" type="submit">Registrer ny vare</button>
 
     </form>
+
+
 
     <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
     <script>
@@ -72,6 +82,11 @@
             };
 
             klestype.push(vare);
+
+            inpBilde.value = "";
+            inpMerke.value = "";
+            inpNavn.value = "";
+            inpPris.value = "";
 
         }
 
