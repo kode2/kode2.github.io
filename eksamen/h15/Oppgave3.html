@@ -22,6 +22,9 @@
 <body>
 
     <h1>Beregn ditt snitt</h1>
+    <div class="callout success" id="divPoeng">
+        Skriv inn karakterene dine, beregner vi antall poeng.
+    </div>
     <form id="skjema">
         <table class="tiny">
             <thead>
@@ -32,6 +35,14 @@
             </thead>
             <tbody id="tabell">
             </tbody>
+            <tfooter>
+                <tr>
+                    <td>Tillegspoeng</td>
+                    <td>
+                        <input type="number" id="inpTillegg" placeholder="0-50" min="0" max="50">
+                    </td>
+                </tr>
+            </tfooter>
         </table>
         <button class="button expanded" type="submit">Sjekk snittet ditt</button>
     </form>
@@ -39,6 +50,9 @@
     <script>
 
         let skjema = document.getElementById("skjema");
+        let inpTillegg = document.getElementById("inpTillegg");
+        let divPoeng = document.getElementById("divPoeng");
+
 
 
         let fagene = [
@@ -70,7 +84,6 @@
         function lagTabell() {
             tabell.innerHTML = "";
             for(let [i, fag] of fagene.entries()) {
-                if(fag.type) {
                     tabell.innerHTML += `
                     <tr>
                         <td>
@@ -81,16 +94,7 @@
                         </td>
                     </tr>
                 `;
-                } else {
-                    tabell.innerHTML += `
-                        <tr>
-                            <td>${fag.navn}</td>
-                            <td>
-                                <input value="${fag.karakter}" onchange="settKarakter(this.value, ${i})" type="number" placeholder="1-6" min="1" max="6" required>
-                            </td>
-                        </tr>
-                    `
-                }
+
             }
         }
 
@@ -98,17 +102,30 @@
 
         function settNavn(navn, i) {
             fagene[i].navn = navn;
-            console.log(fagene[i]);
         }
 
         function settKarakter(karakter, i) {
             fagene[i].karakter = Number(karakter);
-            console.log(fagene[i]);
         }
 
 
         function beregnPoeng(evt) {
             evt.preventDefault();
+
+            let poeng = 0;
+            let antallFag = fagene.length;
+
+            for(let fag of fagene) {
+                poeng += fag.karakter;
+            }
+
+            let snitt = poeng / antallFag;
+
+            let karakterpoeng = snitt * 10;
+            let total = karakterpoeng + Number(inpTillegg.value);
+
+            divPoeng.innerHTML = "Antall poeng: " + total;
+            scrollTo(0,0);
 
             fagene.sort(function(a, b) {
                 return b.karakter - a.karakter;
