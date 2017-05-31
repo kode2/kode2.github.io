@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Round it goes</title>
+    <style>
+        body {
+            background-color: rebeccapurple;
+        }
+        #molle {
+            position: relative;
+            top: 30px;
+            left: 200px;
+        }
+        #molle > img {
+            position: absolute;
+        }
+        #molle > img:nth-child(1) {
+            left: 175px;
+            top: 230px;
+        }
+        #molle > img:nth-child(3) {
+            left: 165px;
+            top: 210px;
+        }
+        #blader {
+            transform-origin: 175px 200px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <input type="radio" name="rbVind" value="0.2"></input>
+    <input type="radio" name="rbVind" value="0.8"></input>
+    <input type="radio" name="rbVind" value="1.4"></input>
+
+
+    <div id="molle">
+        <img src="bilder/stolpe.png" id="stolpe">
+        <img src="bilder/blader.png" id="blader">
+        <img src="bilder/deksel.png" id="deksel">
+    </div>
+
+    <script>
+
+        let stolpe = document.getElementById("stolpe");
+        let blader = document.getElementById("blader");
+        let deksel = document.getElementById("deksel");
+
+        let vindknapper = document.querySelectorAll("[name=rbVind]");
+        for(let knapp of vindknapper) {
+            knapp.onclick = pust;
+        }
+
+        let keyframes = [
+            {transform: "rotate(0turn)"},
+            {transform: "rotate(1turn)"}
+        ];
+        let timing = {
+            duration: 1000,
+            iterations: Infinity
+        };
+
+        let snurr = blader.animate(keyframes, timing);
+
+        function pust() {
+            snurr.playbackRate = Number(this.value);
+        }
+
+
+
+    </script>
+</body>
+</html>

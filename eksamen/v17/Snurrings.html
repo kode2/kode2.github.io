@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Snurre</title>
+    <style>
+        #blader {
+            transform-origin: 176px 197px;
+        }
+    </style>
+</head>
+<body>
+
+    <p>Hvordan kan vi veldig enkelt kontrollere animasjon med WAAPI</p>
+    <input type="radio" name="rb" onclick="snurr(0.2)"> Stille bris
+    <input type="radio" name="rb" onclick="snurr(1.4)"> Frisk bris
+    <input type="radio" name="rb" onclick="snurr(2.2)"> Stiv kuling
+    <img src="bilder/blader.png" id="blader">
+
+
+    <script>
+
+        let blader = document.getElementById("blader");
+        let keyframes = [
+            {transform: "rotate(0)"},
+            {transform: "rotate(1turn)"},
+        ];
+        let settings = {
+            duration: 2000,
+            iterations: Infinity
+        };
+        let animasjon = blader.animate(keyframes, settings);
+
+        function snurr(vindstyrke) {
+            animasjon.playbackRate = vindstyrke;
+        }
+
+
+
+    </script>
+</body>
+</html>
