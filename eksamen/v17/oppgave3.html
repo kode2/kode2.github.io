@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.min.css">
+    <style>
+        body {
+            max-width: 700px;
+            margin: auto;
+            padding: 10px;
+        }
+    </style>
+    <title>Oppgave 3</title>
+</head>
+<body>
+
+    <form id="skjema">
+    </form>
+    <div id="info"></div>
+
+    <script>
+        let skjema = document.getElementById("skjema");
+        let info = document.getElementById("info");
+
+
+        let tider = [
+            {navn: "02-08"},
+            {navn: "08-14"},
+            {navn: "14-20"},
+            {navn: "20-02"}
+        ];
+
+        let vindintervaller = [
+            {navn: "Stille", start: 0, slutt: 0-2, watt: 0},
+            {navn: "Flau vind", start: 0.3, slutt: 1.5, watt: 0},
+            {navn: "Svak vind", start: 1.6, slutt: 3.3, watt: 2},
+            {navn: "Lett bris", start: 3.4, slutt: 5.4, watt: 10},
+            {navn: "Laber bris", start: 5.5, slutt: 7.9, watt: 60},
+            {navn: "Frisk bris", start: 8, slutt: 10.7, watt: 150},
+            {navn: "Liten kuling", start: 10.8, slutt: 13.8, watt: 400},
+            {navn: "Stiv kuling", start: 13.9, slutt: 17.1, watt: 500}
+        ];
+
+        for(let tid of tider) {
+
+            let label = document.createElement("label");
+            label.value = tid.navn;
+            let sel = document.createElement("select");
+            sel.innerHTML += `<option value="">Velg vindstyrke for tiden ${tid.navn}</option>`;
+
+            for(let intervall of vindintervaller) {
+                let option = document.createElement("option");
+                option.value = intervall.watt;
+                option.innerHTML = intervall.navn;
+                sel.appendChild(option);
+            }
+            sel.onchange = beregnTotal;
+            skjema.appendChild(sel);
+        }
+
+        function beregnTotal() {
+            let total = 0;
+
+            let alleTider = document.querySelectorAll("select");
+            for(let tid of alleTider) {
+                if(tid.value) {
+                    total += Number(tid.value);
+                }
+            }
+
+            info.innerHTML = "Totalt produsert watt: <b>" + total + "</b>";
+
+        }
+
+    </script>
+</body>
+</html>
