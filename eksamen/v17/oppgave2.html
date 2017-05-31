@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hvor mye strøm blir det?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.min.css">
+    <style>
+        body {
+            max-width: 700px;
+            margin: auto;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="skjema">
+        <label>Vindstyrke</label>
+        <input type="text" id="inpVind" required placeholder="antall m/s" autocomplete="off">
+        <button type="submit" class="button">Sjekk hvor mye watt du får</button>
+    </form>
+    <artice class="outcall success" id="info">
+        Sjekk hvor mye som produseres
+    </artice>
+
+    <script>
+
+        let skjema = document.getElementById("skjema");
+        let inpVind = document.getElementById("inpVind");
+        let info = document.getElementById("info");
+
+
+        function beregnWatt(vindstyrke) {
+
+            // Vindmøllen starter først ved 2.5 og stenges ved 15
+            if( vindstyrke < 2.5 || vindstyrke > 15 ) {
+                return 0;
+            }
+
+            if (vindstyrke > 13.8) return 500; // Stiv kuling
+            if (vindstyrke > 10.8) return 400; // Liten kuling
+            if (vindstyrke > 8) return 150; // Liten frisk bris
+            if (vindstyrke > 5.5) return 60; // Liten frisk bris
+            if (vindstyrke > 3.4) return 10; // Liten bris
+            if (vindstyrke > 1.6) return 2; // Liten bris
+
+        }
+
+        function visWatt(evt) {
+            evt.preventDefault();
+            info.innerHTML = "Du får " + beregnWatt(Number(inpVind.value)) + " WATT";
+        }
+
+        skjema.onsubmit = visWatt;
+
+    </script>
+</body>
+</html>
