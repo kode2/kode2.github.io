@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fritt fall</title>
+    <style>
+
+        body {
+            background-color: lightblue;
+        }
+        #bird {
+            position: absolute;
+            background-image: url("flappy.png");
+            background-size: cover;
+            width: 132px;
+            height: 106px;
+            left: 100px;
+            top: 200px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="bird"></div>
+
+    <script>
+        var fugl = {
+            elem: document.getElementById("bird"),
+            gravity: 0.1,
+            falling_speed: 1,
+            y_pos: 50
+
+        };
+
+        function fly() {
+
+            fugl.elem.style.top = fugl.y_pos + "px";
+            fugl.y_pos += fugl.falling_speed;
+            fugl.falling_speed += fugl.gravity;
+            console.log(fugl.falling_speed);
+
+            // Treffer bakken
+            // Kanskje det er her man bør tape spillet
+            if(fugl.y_pos >= innerHeight - 106){
+                fugl.falling_speed = -(fugl.falling_speed / 1.5);
+            }
+
+            requestAnimationFrame(fly);
+        }
+
+        function flap() {
+            fugl.falling_speed = -4;
+        }
+
+        document.onclick = flap;
+
+        fly();
+    </script>
+
+</body>
+</html>
