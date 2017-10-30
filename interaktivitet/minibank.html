@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minibank</title>
+</head>
+<body>
+
+    <form id="skjema">
+        <input type="number" id="inpBelop" required>
+        <input type="radio" name="rbTransaksjon" id="rbInnskudd" required>
+        <label for="rbInnskudd">Innskudd</label>
+        <input type="radio" name="rbTransaksjon" id="rbUttak" required>
+        <label for="rbUttak">Uttak</label>
+        <button type="submit">OK</button>
+    </form>
+
+    <div id="info"></div>
+
+    <script>
+        var inpBelop = document.getElementById("inpBelop");
+        var rbInnskudd = document.getElementById("rbInnskudd");
+        var rbUttak = document.getElementById("rbUttak");
+        var skjema = document.getElementById("skjema");
+
+
+        var info = document.getElementById("info");
+
+        // Vi har 20 000 kroner når vi starter
+        var saldo = 20000;
+
+        function visSaldo() {
+            info.innerHTML = "Saldoen din er " + saldo + " kr.";
+        }
+
+        function settInn(belop) {
+
+            saldo = saldo + belop;
+            visSaldo();
+
+        }
+
+        function taUt(belop) {
+
+            if(belop <= saldo) {
+                saldo = saldo - belop;
+                visSaldo();
+            } else {
+                info.innerHTML = "<p>Du har ikke dekning på kontoen.</p>";
+                info.innerHTML += "Saldoen din er " + saldo + " kr.";
+            }
+
+        }
+
+        function transaksjon(evt) {
+            evt.preventDefault();
+
+            var belop = Number(inpBelop.value);
+
+            if(rbInnskudd.checked) {
+                settInn(belop);
+            } else {
+                taUt(belop);
+            }
+
+        }
+
+        skjema.onsubmit = transaksjon;
+
+
+
+
+    </script>
+
+</body>
+</html>

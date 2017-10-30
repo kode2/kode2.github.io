@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fuglen</title>
+    <style>
+        #fuglen {
+            width: 50px;
+            height: 50px;
+            background-color: #2ac845;
+            position: absolute;
+            left: 30px;
+            top: 50px;
+        }
+        body {
+            height: 100vh;
+            background-image: url("bakgrunn.png");
+            background-repeat: repeat-x;
+            background-position: left bottom;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div id="fuglen"></div>
+
+
+    <script>
+
+        var fuglen = document.getElementById("fuglen");
+
+        var fallfart = 1;
+        var gravitasjon = 0.1;
+        var ypos = 50;
+
+        var bgpos = 0;
+
+        function fallingDown() {
+            // Fuglen faller hele tiden
+            fallfart += gravitasjon;
+            ypos += fallfart;
+
+            fuglen.style.top = ypos + "px";
+        }
+
+        function fly() {
+            // Men den kan flakse og fly opp
+            fallfart = -4;
+        }
+        function moveBackground() {
+            bgpos = bgpos - 5;
+            document.body.style.backgroundPosition = bgpos + "px bottom";
+        }
+
+        function loop() {
+
+            fallingDown();
+            moveBackground();
+            requestAnimationFrame(loop);
+        }
+
+        loop();
+
+        document.onclick = fly;
+
+    </script>
+
+
+</body>
+</html>
