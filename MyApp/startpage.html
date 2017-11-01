@@ -43,9 +43,9 @@
                     });
                 } else {
                     // User is signed out.
-                    document.getElementById('sign-in-status').textContent = 'Signed out';
-                    document.getElementById('sign-in').textContent = 'Sign in';
-                    document.getElementById('account-details').textContent = 'null';
+
+                    document.body.innerHTML += "Du må logge inn her: ";
+                    document.body.innerHTML += "<a href='index.html'>LOGG INN</a>";
                 }
             }, function(error) {
                 console.log(error);
