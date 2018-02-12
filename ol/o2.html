@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="foundation-float.min.css">
+    <title>Oppgave 2</title>
+</head>
+<body>
+
+
+    <main>
+
+        <form id="skjema">
+            <select id="velgLand" required>
+                <option value="">Velg land</option>
+                <option value="0">United States</option>
+                <option value="1">Germany</option>
+                <option value="2">Canada</option>
+            </select>
+            <select id="velgMedalje" required>
+                <option value="">Velg valør på medalje</option>
+                <option value="0">Gull</option>
+                <option value="1">Sølv</option>
+                <option value="2">Bronse</option>
+            </select>
+            <button type="submit">Registrer medalje</button>
+        </form>
+
+        <table>
+            <thead>
+
+            </thead>
+            <tbody id="tb">
+
+            </tbody>
+        </table>
+
+    </main>
+
+    <script>
+        const skjema = document.getElementById("skjema");
+        const velgLand = document.getElementById("velgLand");
+        const velgMedalje = document.getElementById("velgMedalje");
+        const tb = document.getElementById("tb");
+
+
+        var landene = [
+            { navn: "United States", gold: 2, silver: 3, bronze: 1, total: 6, flagg: "us.png" },
+            { navn: "Germany", gold: 5, silver: 1, bronze: 4, total: 10, flagg: "ger.png" },
+            { navn: "Canada", gold: 2, silver: 3, bronze: 1, total: 5, flagg: "can.png" }
+        ];
+
+        function visOversikt() {
+            tb.innerHTML = ""; // Nuller ut tabellen
+
+            var kopi =  landene.slice(0);
+
+            kopi.sort(function(a, b){
+               return b.total - a.total;
+            });
+
+
+            for(var land of kopi) {
+                tb.innerHTML += `
+                    <tr>
+                        <td>
+                            <img src="${land.flagg}">
+                        </td>
+                        <td>${land.navn}</td>
+                        <td>${land.gold}</td>
+                        <td>${land.silver}</td>
+                        <td>${land.bronze}</td>
+                        <td>${land.total}</td>
+                    </tr>
+                `;
+            }
+        }
+
+        function registrerMedalje(evt) {
+            evt.preventDefault();
+            var land_nr = Number(velgLand.value);
+            var land = landene[land_nr];
+
+            var medalje_nr = Number(velgMedalje.value);
+            if(medalje_nr === 0) {
+                land.gold++;
+            } else if(medalje_nr === 1) {
+                land.silver++;
+            } else if(medalje_nr === 2) {
+                land.bronze++;
+            }
+
+            // Uansett skal totalen økes med 1
+            land.total++;
+
+            visOversikt();
+
+        }
+
+        visOversikt();
+        skjema.onsubmit = registrerMedalje;
+
+        // Landene har en indeks eller et nummer, USA er 0, Germany er 1 osv
+        // Germany får vi tak i sånn:
+        //var germany = landene[1];
+
+        // Gi Tyskland gull:
+        //germany.gold++;
+        //germany.total++;
+
+        //console.log(landene);
+
+    </script>
+
+</body>
+</html>

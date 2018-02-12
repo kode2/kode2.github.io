@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Oppgave 01</title>
+    <style>
+        .rad {
+            width: 600px;
+            height: 20px;
+            background-color: white;
+            display: grid;
+            grid-template-columns: 10px repeat(6, 1fr);
+            grid-gap: 2px;
+            position: relative;
+
+        }
+        .rad > div {
+            background-color: #eee;
+        }
+
+        .rad .prikk {
+            position: absolute;
+            background-color: #22bb5b;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            top: 7px;
+            left: 8px;
+        }
+
+        .rad .prikk:nth-child(1) {
+            left: 8px;
+        }
+
+        .rad .prikk:nth-child(2) {
+            left: 39px;
+        }
+        .rad .prikk:nth-child(3) {
+            left: 139px;
+        }
+
+        .rad .prikk:nth-child(4) {
+            left: 260px;
+        }
+
+        .rad .prikk:nth-child(5) {
+            left: 390px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="rad" id="rad1">
+
+        <div class="prikk"></div>
+        <div class="prikk"></div>
+        <div class="prikk"></div>
+        <div class="prikk"></div>
+        <div class="prikk"></div>
+
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+
+
+    </div>
+
+    <script>
+
+
+        const tider = [
+            {
+                navn: "Didier Defago",
+                land: "Sveits",
+                tid: "1:54.31",
+                delay: 0,
+
+            },
+            {
+                navn: "Aksel Lund Svindal",
+                land: "Norge",
+                delay: 70
+            },
+            {
+                navn: "Bode Miller",
+                land: "USA",
+                delay: 90
+            },
+            {
+                navn: "Mario Scheiber",
+                land: "Østerrike",
+                delay: 210
+            },
+            {
+                navn: "Andrew Weibrecht",
+                land: "USA",
+                delay: 1430
+            }
+        ];
+
+        const ac = new AudioContext();
+        const osc = ac.createOscillator();
+        var gainNode = ac.createGain();
+        gainNode.connect(ac.destination);
+        osc.connect(gainNode);
+
+        gainNode.gain.value = 0;
+        osc.frequency.value = 880;
+        osc.start(0);
+
+
+        function stopp() {
+            gainNode.gain.value = 0;
+        }
+
+        function spill() {
+            gainNode.gain.value = 0.5;
+            setTimeout(stopp, 100);
+        }
+
+        document.onclick = spill;
+
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>
