@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scrabble</title>
+</head>
+<body>
+
+    <input type="text" id="inpOrd">
+    <div id="divPoeng"></div>
+
+
+    <script>
+
+        const inpOrd = document.getElementById("inpOrd");
+        const divPoeng = document.getElementById("divPoeng");
+
+
+        function finnPoeng(ord) {
+
+            let poeng = 0;
+
+            let bokstaver = ord.split("");
+
+            for(let bokstav of bokstaver) {
+
+                switch(bokstav.toUpperCase()) {
+                    case "A":
+                    case "E":
+                    case "I":
+                    case "O":
+                    case "U":
+                    case "L":
+                    case "N":
+                    case "R":
+                    case "S":
+                    case "T":
+                        poeng += 1;
+                        break;
+                    case "D":
+                    case "G":
+                        poeng += 2;
+                        break;
+                    case "B":
+                    case "C":
+                    case "M":
+                    case "P":
+                        poeng += 3;
+                        break;
+                    default:
+                        poeng += 0;
+                }
+
+            }
+
+            return poeng;
+
+        }
+
+        inpOrd.oninput = function() {
+
+            let poeng = finnPoeng(inpOrd.value);
+            divPoeng.innerHTML = poeng;
+
+        }
+
+
+
+
+
+    </script>
+
+</body>
+</html>
