@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hvor mye strøm blir det?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.min.css">
+    <style>
+        body {
+            max-width: 700px;
+            margin: auto;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Wattproduksjon per time</h1>
+
+    <form id="skjema">
+
+        <input step="0.01" type="number" id="inpVindstyrke" required placeholder="antall m/s">
+        <button class="button" type="submit">Regn ut antall watt i timen</button>
+
+    </form>
+
+    <div id="info" class="callout success">Skriv inn vindstyrke for å beregne wattproduksjon</div>
+
+    <script>
+        const skjema = document.getElementById("skjema");
+        const inpVindstyrke = document.getElementById("inpVindstyrke");
+
+
+        function beregnWattPerTime(vindstyrke) {
+            if(vindstyrke < 2.5 || vindstyrke > 15) {
+                return 0;
+            }
+            if (vindstyrke >= 13.9) { return 500;  } // Stiv kuling
+            if (vindstyrke >= 10.8) { return 400; }  // Liten kuling
+            if (vindstyrke >= 8) { return 150; } // Liten frisk bris
+            if (vindstyrke >= 5.5) { return 60; } // Liten frisk bris
+            if (vindstyrke >= 3.4) { return 10; } // Liten bris
+            if (vindstyrke >= 1.6) { return 2; } // Liten bris
+        }
+
+        skjema.onsubmit = function(evt) {
+            evt.preventDefault();
+            let vindstyrke = Number(inpVindstyrke.value);
+            let watt = beregnWattPerTime(vindstyrke);
+
+            info.innerHTML = `Vi produserer <b>${watt} watt </b>per time.`;
+
+
+        }
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

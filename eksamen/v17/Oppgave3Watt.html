@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="foundation-float.min.css">
+    <style>
+        body {
+            background-color: #eee;
+        }
+        main {
+            padding: 10px;
+            background-color: white;
+            max-width: 700px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 22px;
+        }
+    </style>
+    <title>Wattproduksjon per døgn</title>
+</head>
+<body>
+
+    <main>
+        <h1>Watt per døgn</h1>
+        <label>Vindstyrke fra 02:00 - 08:00</label>
+        <select>
+            <option value="0">Velg vindstyrke</option>
+            <option value="0">Stille</option>
+            <option value="0">Flau vind</option>
+            <option value="2">Svak vind</option>
+            <option value="10">Lett bris</option>
+            <option value="60">Laber bris</option>
+            <option value="150">Frisk bris</option>
+            <option value="400">Liten kuling</option>
+            <option value="500">Stiv kuling</option>
+            <option value="0">Liten storm</option>
+            <option value="0">Full storm</option>
+            <option value="0">Sterk storm</option>
+            <option value="0">Orkan</option>
+        </select>
+        <label>Vindstyrke fra 08:00 - 14:00</label>
+        <select>
+            <option value="0">Velg vindstyrke</option>
+            <option value="0">Stille</option>
+            <option value="0">Flau vind</option>
+            <option value="2">Svak vind</option>
+            <option value="10">Lett bris</option>
+            <option value="60">Laber bris</option>
+            <option value="150">Frisk bris</option>
+            <option value="400">Liten kuling</option>
+            <option value="500">Stiv kuling</option>
+            <option value="0">Liten storm</option>
+            <option value="0">Full storm</option>
+            <option value="0">Sterk storm</option>
+            <option value="0">Orkan</option>
+        </select>
+        <label>Vindstyrke fra 14:00 - 20:00</label>
+        <select>
+            <option value="0">Velg vindstyrke</option>
+            <option value="0">Stille</option>
+            <option value="0">Flau vind</option>
+            <option value="2">Svak vind</option>
+            <option value="10">Lett bris</option>
+            <option value="60">Laber bris</option>
+            <option value="150">Frisk bris</option>
+            <option value="400">Liten kuling</option>
+            <option value="500">Stiv kuling</option>
+            <option value="0">Liten storm</option>
+            <option value="0">Full storm</option>
+            <option value="0">Sterk storm</option>
+            <option value="0">Orkan</option>
+        </select>
+        <label>Vindstyrke fra 20:00 - 02:00</label>
+        <select>
+            <option value="0">Velg vindstyrke</option>
+            <option value="0">Stille</option>
+            <option value="0">Flau vind</option>
+            <option value="2">Svak vind</option>
+            <option value="10">Lett bris</option>
+            <option value="60">Laber bris</option>
+            <option value="150">Frisk bris</option>
+            <option value="400">Liten kuling</option>
+            <option value="500">Stiv kuling</option>
+            <option value="0">Liten storm</option>
+            <option value="0">Full storm</option>
+            <option value="0">Sterk storm</option>
+            <option value="0">Orkan</option>
+        </select>
+
+        <div id="info" class="callout success">
+            Velg vindstyrker for å se produksjonen per døgn
+        </div>
+
+    </main>
+
+    <script>
+        const info = document.getElementById("info");
+        const valgbokser = document.querySelectorAll("main select");
+
+        function regnUtWatt() {
+            let watt = 0;
+
+            for(let valgboks of valgbokser) {
+
+                let w = Number(valgboks.value) * 6;
+                watt += w;
+
+            }
+
+            info.innerHTML = `Det blir produsert <b>${watt} i døgnet</b>`;
+
+        }
+
+        for(let valgboks of valgbokser) {
+            valgboks.onchange = regnUtWatt;
+        }
+
+
+    </script>
+
+</body>
+</html>

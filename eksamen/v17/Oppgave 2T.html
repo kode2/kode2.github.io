@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>IT2-V2017 Oppgave 2</title>
+	</head>
+	<body>
+		<form id="frmVind">
+			<label for="inpVind1">Angi vindstyrke (m/s)</label>
+			<input type="number" step="0.01" id="inpVind1" size="5">
+			<button type="submit" id="btnRegistrer">Registrer</button>
+		</form>
+		<div id="divUt"></div>
+	
+		<script>
+			var frmVind = document.getElementById("frmVind");
+			var inpVind1 = document.getElementById("inpVind1");
+			var btnRegistrer = document.getElementById("btnRegistrer");
+			var divUt = document.getElementById("divUt");
+			var arrVindstyrkeEffekt = [["Navn","m/s","Watt i timen"],["Stille",0.2,0],["Flau vind",1.5,0],["Svak vind",3.3,2],["Lett bris",5.4,10],["Laber bris",7.9,60],["Frisk bris",10.7,150],["Liten kuling",13.8,400],["Stiv kuling",17.1,500]];
+			
+			frmVind.onsubmit = function(evt){
+				evt.preventDefault();
+				divUt.innerHTML="Effekten av vindmøllen ved "+inpVind1.value+" er "+vindmolleEffekt(Number(inpVind1.value))+" Watt per time.";
+			}
+			
+			function vindmolleEffekt(vindstyrke){
+				var vindMax =0;
+				var i = 0;
+				if(2.5<=vindstyrke&&vindstyrke<=15){
+					while(vindstyrke>vindMax){
+						i++;
+						vindMax = arrVindstyrkeEffekt[i][1];
+					}
+					return arrVindstyrkeEffekt[i][2];
+				}
+				else{
+					return 0;
+				}
+			}
+		</script>
+	</body>
+</html>

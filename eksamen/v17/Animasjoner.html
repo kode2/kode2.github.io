@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Test</title>
+    <style>
+        body {
+            background-color: #eee;
+        }
+        .blad {
+            position: absolute;
+        }
+        main {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            background-color: lemonchiffon;
+            margin: auto;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <main id="main"></main>
+
+    <script>
+
+        const main = document.getElementById("main");
+
+
+        let animasjoner = [];
+        for(let i=0; i<100; i++) {
+
+            let blad = document.createElement("img");
+            blad.src = "images/blad2.png";
+            blad.className = "blad";
+            blad.style.left = Math.random() * 800 + "px";
+            main.appendChild(blad);
+
+            let keyframes = [
+                {top: -(Math.random() * 100) + "px"},
+                {top: 600 + Math.random() * 100 + "px"}
+            ];
+
+            let settings = {
+                duration: 6000 - Math.random() * 2000,
+                iterations: Infinity
+            };
+
+            let animasjon = blad.animate(keyframes, settings);
+            animasjoner.push(animasjon);
+
+
+        }
+
+        document.onclick = function() {
+            for(let animasjon of animasjoner){
+                animasjon.playbackRate = 4;
+            }
+        }
+
+    </script>
+
+</body>
+</html>

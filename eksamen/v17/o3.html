@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Oppgave 3</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.min.css">
     <style>
         body {
@@ -14,12 +15,14 @@
             font-size: 1.6rem;
         }
     </style>
-    <title>Oppgave 3</title>
 </head>
 <body>
-    <h1>Hvor mye strøm gir møllen på et døgn</h1>
+
+
+    <h1>Hvor mye watt produseres i døgnet?</h1>
+    <label>02:00 - 08:00</label>
     <select>
-        <option value="">Gjennomsnittlig vindstyrke kl 02-08</option>
+        <option value="">Velg vindstyrke for tiden mellom 02:00 til 08:00</option>
         <option value="0">Stille</option>
         <option value="0">Flau vind</option>
         <option value="2">Svak vind</option>
@@ -34,8 +37,9 @@
         <option value="0">Sterk kuling</option>
         <option value="0">Sterk kuling</option>
     </select>
+    <label>08:00 - 14:00</label>
     <select>
-        <option value="">Gjennomsnittlig vindstyrke kl 08-14</option>
+        <option value="">Velg vindstyrke for tiden mellom 08:00 til 14:00</option>
         <option value="0">Stille</option>
         <option value="0">Flau vind</option>
         <option value="2">Svak vind</option>
@@ -50,8 +54,9 @@
         <option value="0">Sterk kuling</option>
         <option value="0">Sterk kuling</option>
     </select>
+    <label>14:00 - 20:00</label>
     <select>
-        <option value="">Gjennomsnittlig vindstyrke kl 14-20</option>
+        <option value="">Velg vindstyrke for tiden mellom 14:00 til 20:00</option>
         <option value="0">Stille</option>
         <option value="0">Flau vind</option>
         <option value="2">Svak vind</option>
@@ -66,8 +71,9 @@
         <option value="0">Sterk kuling</option>
         <option value="0">Sterk kuling</option>
     </select>
+    <label>20:00 - 02:00</label>
     <select>
-        <option value="">Gjennomsnittlig vindstyrke kl 20-02</option>
+        <option value="">Velg vindstyrke for tiden mellom 20:00 til 02:00</option>
         <option value="0">Stille</option>
         <option value="0">Flau vind</option>
         <option value="2">Svak vind</option>
@@ -83,36 +89,43 @@
         <option value="0">Sterk kuling</option>
     </select>
 
-    <div id="info" class="callout success">Velg vindstyrker for tidsintervallene</div>
-
+    <div class="callout success" id="info">Velg vindstyrke for tidsintervallene</div>
 
     <script>
-
-        const valgbokser = document.querySelectorAll("select");
         const info = document.getElementById("info");
+        // En referanse til de fire select-elementene
+        const valgbokser = document.querySelectorAll("select");
 
 
-        for(let valgboks of valgbokser) {
+        function regnUtAntallWatt() {
 
-            valgboks.onchange = regnUtWattproduksjon;
-
-        }
-
-        function regnUtWattproduksjon() {
-
-            let watt = 0;
-            for(let valgboks of valgbokser){
-
-                let antWatt = Number(valgboks.value);
-                watt += 6 * antWatt;
-
+            let totalwatt = 0;
+            for(const valgboks of valgbokser) {
+                let watt = Number(valgboks.value);
+                totalwatt += watt * 6;
             }
-
-            info.innerHTML = `På et døgn vil møllen produsere <b>${watt} watt</b>`;
+            info.innerHTML = `Møllen vil produsere <strong>${totalwatt} watt</strong>.`;
 
         }
+
+        function init() {
+            for(const valgboks of valgbokser){
+                valgboks.onchange = regnUtAntallWatt;
+            }
+        }
+
+        init();
+
 
     </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Animasjon</title>
+    <style>
+        body {
+            background-color: #3b3b3b;
+        }
+        main {
+            width: 700px;
+            height: 400px;
+            margin: auto;
+            position: relative;
+            background-color: #eee;
+        }
+        #bjerk {
+            position: absolute;
+            left: 40px;
+            bottom: 120px;
+        }
+
+        .blad {
+            position: absolute;
+            left: 40px;
+            top: 200px;
+            width: 12px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <main id="main">
+        <img src="images/bjerk2.png" id="bjerk">
+        <img src="images/blad2.png" class="blad">
+    </main>
+
+    <script>
+
+        const main = document.getElementById("main");
+
+
+        var fart = 1;
+        // Lager noen random animasjoner
+
+        let animasjoner = [];
+
+        for(let i=0; i<=100; i++) {
+
+            let bladkeyframes = [
+                {left: Math.random() * 40 + "px", top: Math.random() * 300 + "px"},
+                {left: Math.random() * 1400 - 800 + "px", top: Math.random() * 300 + "px"}
+            ];
+            let settings = {duration: Math.random() * 3000, iterations: Infinity}
+
+            let blad = document.createElement("img");
+            blad.src = "images/blad.png";
+            blad.className = "blad";
+            main.appendChild(blad);
+            let animasjon = blad.animate(bladkeyframes, settings);
+            animasjoner.push(animasjon);
+
+        }
+
+        document.onclick = function() {
+
+            for(let animasjon of animasjoner){
+                animasjon.playbackRate = 4;
+            }
+
+
+        }
+
+
+    </script>
+
+</body>
+</html>
