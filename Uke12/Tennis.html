@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pong</title>
+    <style>
+        body {
+            background-color: darkorange;
+        }
+        main {
+            width: 600px;
+            margin: auto;
+        }
+
+    </style>
+</head>
+<body>
+
+    <main>
+        <canvas id="minCanvas" width="600" height="400"></canvas>
+    </main>
+
+    <script>
+
+        const minCanvas = document.getElementById("minCanvas");
+        const ctx = minCanvas.getContext("2d");
+        let theGameIsOn = true;
+
+        const bane = {
+            bredde: 600,
+            hoyde: 400,
+            gressfarge: "darkgreen"
+        };
+
+        const ball = {
+          radius: 7,
+          diameter: 14,
+          xpos: 200,
+          ypos: 100,
+          farge: "yellow",
+          xretning: -1,
+          yretning: 1,
+          xfart: 4,
+          yfart: 4
+        };
+
+        const motstander = {
+          bredde: 10,
+          hoyde: 50,
+          farge: "white",
+          xpos: 20
+        };
+
+        const racket = {
+          bredde: 10,
+          hoyde: 50,
+          farge: "white",
+          xpos: bane.bredde - 30,
+          ypos: bane.hoyde / 2,
+          yfart: 5,
+          yretning: 0
+        };
+
+        function tegnRacket() {
+            ctx.fillStyle = racket.farge;
+            ctx.fillRect(racket.xpos, racket.ypos, racket.bredde, racket.hoyde);
+            racket.ypos += racket.yfart * racket.yretning;
+        }
+
+        function tegnMotstander() {
+            ctx.fillStyle = motstander.farge;
+            ctx.fillRect(motstander.xpos, ball.ypos - motstander.hoyde/2, motstander.bredde, motstander.hoyde);
+        }
+        function sjekkOmBallenTrefferMotstanderen() {
+
+            if(ball.xpos < motstander.xpos + motstander.bredde) {
+                ball.xretning = 1;
+            }
+
+        }
+
+        function tegnBall() {
+            ctx.beginPath();
+                ctx.arc(ball.xpos, ball.ypos, ball.radius, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fillStyle = ball.farge;
+            ctx.fill();
+            ball.xpos += ball.xfart * ball.xretning;
+            ball.ypos += ball.yfart * ball.yretning;
+        }
+
+        function tegnBane() {
+            ctx.fillStyle = bane.gressfarge;
+            ctx.fillRect(0, 0, bane.bredde, bane.hoyde);
+        }
+
+        function sjekkOmBallenTrefferVegg() {
+            // Treffer den gulvet?
+            if(ball.ypos + ball.radius > bane.hoyde) {
+                ball.yretning = -1;
+            }
+            // Treffer den taket?
+            if(ball.ypos < ball.radius) {
+                ball.yretning = 1;
+            }
+
+            // Midlertidig løsning - Snur når vi treffer bakveggen
+            if(ball.xpos + ball.radius > bane.bredde) {
+                ball.xretning = -1;
+            }
+        }
+
+        function gameLoop() {
+            tegnBane();
+            tegnBall();
+            tegnMotstander();
+            tegnRacket();
+            sjekkOmBallenTrefferMotstanderen();
+            sjekkOmBallenTrefferVegg();
+
+            if(theGameIsOn) {
+                requestAnimationFrame(gameLoop);
+            }
+        }
+
+        gameLoop();
+
+
+
+    </script>
+</body>
+</html>
