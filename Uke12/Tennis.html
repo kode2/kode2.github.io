@@ -63,8 +63,18 @@
         };
 
         function tegnRacket() {
+
             ctx.fillStyle = racket.farge;
             ctx.fillRect(racket.xpos, racket.ypos, racket.bredde, racket.hoyde);
+
+            if(racket.ypos <= 0 && racket.yretning === -1) {
+                return; // Avslutter funksjon
+            }
+            if(racket.ypos + racket.hoyde >= bane.hoyde && racket.yretning === 1) {
+                return;
+            }
+
+
             racket.ypos += racket.yfart * racket.yretning;
         }
 
@@ -125,6 +135,28 @@
         }
 
         gameLoop();
+
+        document.onkeydown = function(evt) {
+            let tastekode = evt.keyCode;
+            // 38 er oppover-pilem
+            // 40 er nedover-pilen
+            if(tastekode === 38) {
+                racket.yretning = -1;
+            }
+            if(tastekode === 40) {
+                racket.yretning = 1;
+            }
+        };
+
+        document.onkeyup = function(evt) {
+            let tastekode = evt.keyCode;
+            if(tastekode === 38 && racket.yretning === -1) {
+                racket.yretning = 0; // Står stille
+            }
+            if(tastekode === 40 && racket.yretning === 1) {
+                racket.yretning = 0; // Stopper racketen
+            }
+        }
 
 
 
