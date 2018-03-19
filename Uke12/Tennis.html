@@ -18,14 +18,27 @@
 <body>
 
     <main>
+        <h1>Poeng: <span id="visPoeng">0</span></h1>
+        <h1>Highscore: <span id="visHighscore">0</span></h1>
         <canvas id="minCanvas" width="600" height="400"></canvas>
     </main>
 
     <script>
 
+        let poeng = 0;
+
+        const visHighscore = document.getElementById("visHighscore");
+        const visPoeng = document.getElementById("visPoeng");
+
         const minCanvas = document.getElementById("minCanvas");
         const ctx = minCanvas.getContext("2d");
         let theGameIsOn = true;
+
+        if(localStorage.tennisrekord === undefined) {
+            localStorage.tennisrekord = 0;
+        } else {
+            visHighscore.innerHTML = localStorage.tennisrekord;
+        }
 
         const bane = {
             bredde: 600,
@@ -62,6 +75,40 @@
           yretning: 0
         };
 
+        const ac = new AudioContext();
+
+        function pip(frekvens) {
+            let osc = ac.createOscillator();
+            osc.connect(ac.destination);
+            osc.frequency.value = frekvens;
+            osc.start(ac.currentTime);
+            osc.stop(ac.currentTime + 0.1);
+        }
+
+
+        function sjekkOmBallTrefferRacket() {
+            let tilVenstre = ball.xpos + ball.radius < racket.xpos;
+            let tilHoyre = ball.xpos - ball.radius > racket.xpos + racket.bredde;
+            let over = ball.ypos + ball.radius < racket.ypos;
+            let under = ball.ypos - ball.radius > racket.ypos + racket.hoyde;
+
+            if(!tilVenstre && !tilHoyre && !over && !under) {
+
+                pip(880);
+
+                ball.xretning = -1;
+                poeng++;
+                visPoeng.innerHTML = poeng;
+
+                if(poeng > localStorage.tennisrekord) {
+                    localStorage.tennisrekord = poeng;
+                    visHighscore.innerHTML = poeng;
+                    visHighscore.style.backgroundColor = "yellow";
+                }
+
+            }
+        }
+
         function tegnRacket() {
 
             ctx.fillStyle = racket.farge;
@@ -86,6 +133,7 @@
 
             if(ball.xpos < motstander.xpos + motstander.bredde) {
                 ball.xretning = 1;
+                pip(880);
             }
 
         }
@@ -109,15 +157,22 @@
             // Treffer den gulvet?
             if(ball.ypos + ball.radius > bane.hoyde) {
                 ball.yretning = -1;
+                pip(440);
+
             }
             // Treffer den taket?
             if(ball.ypos < ball.radius) {
                 ball.yretning = 1;
+                pip(440);
+
             }
 
-            // Midlertidig løsning - Snur når vi treffer bakveggen
-            if(ball.xpos + ball.radius > bane.bredde) {
-                ball.xretning = -1;
+
+        }
+
+        function sjekkOmBallErUtenforBanen() {
+            if(ball.xpos > bane.bredde + ball.diameter) {
+                theGameIsOn = false;
             }
         }
 
@@ -128,6 +183,8 @@
             tegnRacket();
             sjekkOmBallenTrefferMotstanderen();
             sjekkOmBallenTrefferVegg();
+            sjekkOmBallTrefferRacket();
+            sjekkOmBallErUtenforBanen();
 
             if(theGameIsOn) {
                 requestAnimationFrame(gameLoop);
