@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reduce med tall</title>
+</head>
+<body>
+
+    <script>
+
+        let res = [
+            { navn: "Harry", poeng: 20 },
+            { navn: "Susan", poeng: 10 },
+            { navn: "Sue", poeng: 12 },
+            { navn: "Pete", poeng: 30 },
+            { navn: "Bob", poeng: 10 }
+        ];
+
+
+        let total = res.reduce( (sum, resultat) =>  sum + resultat.poeng , 0);
+
+        console.log(total);
+
+
+    </script>
+
+</body>
+</html>

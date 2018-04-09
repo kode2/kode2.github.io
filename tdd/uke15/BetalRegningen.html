@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DEl opp regningen</title>
+</head>
+<body>
+
+    <script>
+        let bestillinger = [
+            {navn: "Gløer", rett: "Biff", pris: 400},
+            {navn: "Gløer", rett: "Modne oster", pris: 200},
+            {navn: "Gløer", rett: "Cola", pris: 60},
+            {navn: "Bill", rett: "Dagens torsk", pris: 360},
+            {navn: "Bill", rett: "Sorbet", pris: 250},
+            {navn: "Bill", rett: "Øl", pris: 90},
+            {navn: "Erna", rett: "Omelett", pris: 190},
+            {navn: "Erna", rett: "Vin", pris: 100}
+        ];
+
+        // Starter med å lage et array med bare navnene
+        let navnene = bestillinger.map( bestilling => bestilling.navn );
+        //console.log(navnene);
+
+        // Et set har ikke duplikater, derfor fjernes nå like navn
+        navnene = new Set(navnene);
+
+        //console.log(navnene);
+
+        for(let navn of navnene) {
+            let bestillingene = bestillinger.filter( bestilling => bestilling.navn === navn );
+            let total = bestillingene.reduce( (sum, bestilling) => sum + bestilling.pris , 0);
+            console.log(bestillingene);
+            console.log(navn + " skal betale " + total + " kroner ");
+        }
+
+
+
+    </script>
+
+</body>
+</html>

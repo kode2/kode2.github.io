@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reduce med tall</title>
+</head>
+<body>
+
+    <script>
+
+        let tallene = [4, 2, 12, 20, 30, 5];
+
+        function summer(sum, tall) {
+            console.log("Tallet er nå " + tall);
+            console.log("Summen er nå " + sum);
+
+            return sum + tall;
+
+        }
+
+        let total = tallene.reduce( summer , 100);
+        console.log(total);
+
+    </script>
+
+</body>
+</html>
