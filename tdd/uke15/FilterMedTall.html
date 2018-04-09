@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Filter og tall</title>
+</head>
+<body>
+
+    <script>
+
+        const tallene = [22, 5, 21, 8, 5, 37, 45, 3, 54, 65, 23, 65, 34, 65];
+
+        // Finn de som er over 20
+        let over20 = tallene.filter( tall => tall > 20 );
+
+        // Finn de som er mellom 20 og 50
+        let mellom20og50 = tallene.filter( tall => (tall >= 20 && tall <= 50) );
+
+        // Finne bare partall
+        let partall = tallene.filter( tall => tall % 2 === 0 );
+
+        console.log(partall);
+        console.log(mellom20og50);
+        console.log(over20);
+
+
+
+    </script>
+
+</body>
+</html>

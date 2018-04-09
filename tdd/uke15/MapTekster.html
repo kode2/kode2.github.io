@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Map med tekster</title>
+</head>
+<body>
+
+
+    <script>
+
+
+        let ordene = ["Smør", "Sukker", "Farin", "Persille"];
+
+        // Vi bruker map til å lage noe nytt fra noe eksisterende
+
+        let lengder = ordene.map( ord => ord.length );
+
+        let storeBokstaver = ordene.map( ord => ord.toUpperCase() );
+
+        console.log(lengder);
+        console.log(storeBokstaver);
+
+
+
+    </script>
+
+
+</body>
+</html>
