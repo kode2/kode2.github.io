@@ -4,6 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Oppgave 2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.css">
+    <style>
+        body {
+            background-color: #eee;
+        }
+
+        main {
+            padding: 10px;
+            max-width: 900px;
+            margin: auto;
+            background-color: white;
+        }
+        aside {
+            max-width: 900px;
+            margin: auto;
+            background-color: white;
+            padding: 10px;
+            border-top: 3px solid steelblue;
+        }
+
+        h1 {
+            font-size: 1.25rem;
+        }
+        p {
+            color: #0c3d5d;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -13,15 +43,15 @@
     <script>
 
         // Referanser til de to HTML-elementene
-        let main = document.querySelector("main");
-        let aside = document.querySelector("aside");
+        const main = document.querySelector("main");
+        const aside = document.querySelector("aside");
 
 
         // Definerer et JSON-lignende objekt som inneholder alle oppgaver til quizen
         // Dette vil gjøre det enklere å bytte til andre språk
         // Oppgavene ligger i et array i objektet amerikansk
         // I hver oppgave ligger det et array med alternativer til spørmålene
-        let amerikansk = {
+        const amerikansk = {
             "overskrift" : "Hvor god er du i amerikansk?",
             "lang" : "Amerikansk",
             "oppgaver" : [
@@ -111,14 +141,14 @@
             for(let [indeks, oppgave] of amerikansk.oppgaver.entries()) {
                 // Legger til tittel
                 main.innerHTML += `
-                    <h2>${oppgave.tittel}</h2>
+                    <p>${oppgave.tittel}</p>
                 `;
 
                 // Sjekker om det er en undertittel i oppgaven
                 // Viser den frem hvis det er
                 if(oppgave.undertittel) {
                     main.innerHTML += `
-                        <h3>${oppgave.undertittel}</h3>
+                        <p>${oppgave.undertittel}</p>
                     `;
                 }
 
@@ -146,12 +176,13 @@
                         <label for="opppg${indeks}${indeks2}">${alternativ.tekst}</label>
                     `;
                 }
+                main.innerHTML += "<hr>";
             }
 
             // Nå er alle oppgavene laget
             // Legger til en knapp som kan trykkes på for å sjekke antall poeng
 
-            main.innerHTML += `<hr><button onclick="beregnPoeng()">Avgi svar</button>`;
+            main.innerHTML += `<button class="button" onclick="beregnPoeng()">Avgi svar</button>`;
 
         }
 
