@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Skolevalg</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        #slideshow {
+            background-image: url("bilder/slide01.png");
+            width: 320px;
+            height: 240px;
+            margin: auto;
+            border: 4px solid #eee;
+            transition: 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="bilder/slide02.png" style="display: none">
+    <img src="bilder/slide03.jpg" style="display: none">
+    <audio src="lyder/piano.mp3" loop autoplay></audio>
+
+    <header>
+        <nav>
+            <a href="sp.html"><img src="bilder/sp.png"></a>
+            <a href="mdg.html"><img src="bilder/miljopartiet.png"></a>
+            <a href="krf.html"><img src="bilder/krf.jpg"></a>
+            <a href="hoyre.html"><img src="bilder/hoyre.png"></a>
+            <a href="frp.html"><img src="bilder/frp.jpg"></a>
+            <a href="ap.html"><img src="bilder/ap.png"></a>
+            <a href="piratpartiet.html"><img src="bilder/piratpartiet.png"></a>
+            <a href="raudt.html"><img src="bilder/raudt.png"></a>
+            <a href="venstre.html"><img src="bilder/venstre.png"></a>
+            <a href="sv.html"><img src="bilder/sv.jpg"></a>
+        </nav>
+    </header>
+
+    <main>
+        <div id="slideshow"></div>
+    </main>
+
+    <script>
+        const slideshow = document.getElementById("slideshow");
+
+        const bilder = ["slide01.png", "slide02.png", "slide03.jpg"];
+
+        let neste = 1;
+
+        function byttBilde() {
+
+            slideshow.style.backgroundImage = "url(bilder/" + bilder[neste] + ")";
+            neste++;
+
+            if(neste === bilder.length) {
+                neste = 0;
+            }
+
+        }
+
+        setInterval(byttBilde, 2000);
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
