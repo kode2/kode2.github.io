@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blader i vinden</title>
+    <style>
+        .blad {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <button onclick="sakte()">Sakte</button>
+        <button onclick="medium()">Medium</button>
+        <button onclick="fort()">Fort</button>
+    </main>
+
+    <script>
+        const main = document.querySelector("main");
+        let animasjoner = [];
+        function init(){
+            for(let i=0; i<100; i++) {
+
+                let blad = document.createElement("img");
+                blad.src = "blad.png";
+                blad.className = "blad";
+                blad.style.top = Math.random() * innerHeight + "px";
+                blad.style.transformOrigin = `${Math.random() * 100 - 100}px ${Math.random() * 100 - 100}px`;
+                main.appendChild(blad);
+                let retning = 1;
+                if(Math.random() > 0.5){
+                    retning = -1;
+                }
+
+                let keyframes = [
+                    { left: "-100px", transform: `rotate(0)` },
+                    { left: `${innerWidth + 100}px`, transform: `rotate(${retning}turn)` }
+                ];
+                let settings = {
+                    duration: Math.random() * 5000 + 3000,
+                    iterations: Infinity
+                };
+
+                let animasjon = blad.animate(keyframes, settings);
+                animasjon.currentTime = Math.random() * 8000;
+
+                animasjoner.push(animasjon);
+
+
+            }
+        }
+
+        init();
+
+        function fort() {
+
+            for(let animasjon of animasjoner){
+                animasjon.playbackRate = 3;
+            }
+
+        }
+
+        function sakte() {
+
+            for(let animasjon of animasjoner){
+                animasjon.playbackRate = 0.5;
+            }
+
+        }
+
+        function medium() {
+
+            for(let animasjon of animasjoner){
+                animasjon.playbackRate = 1.5;
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
