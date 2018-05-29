@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registrere filmer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.css">
+    <style>
+        body {
+            padding: 10px;
+            max-width: 800px;
+            margin: auto;
+        }
+        table .button {
+            margin: 0;
+        }
+        td:last-child {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="skjema">
+
+        <input id="inpID" type="text" placeholder="Movie ID" autocomplete="off">
+        <input id="inpTittel" type="text" placeholder="Tittel" autocomplete="off">
+        <input id="inpTrailer" type="text" placeholder="URL til trailer" autocomplete="off">
+        <button type="submit" class="button">Registrer film</button>
+
+    </form>
+
+    <table>
+        <tbody id="tblFilmer"></tbody>
+    </table>
+
+    <script>
+        var skjema = document.getElementById("skjema");
+        var inpID = document.getElementById("inpID");
+        var inpTittel = document.getElementById("inpTittel");
+        var inpTrailer = document.getElementById("inpTrailer");
+        var tblFilmer = document.getElementById("tblFilmer");
+
+
+        var filmer = new Map();
+
+
+        function rediger(id) {
+
+            var film = filmer.get(id);
+            inpID.value = id;
+            inpTittel.value = film.tittel;
+            inpTrailer.value = film.trailer;
+
+        }
+
+        function visFilmer() {
+            tblFilmer.innerHTML = "";
+            for( var [key, film] of filmer ) {
+
+                tblFilmer.innerHTML += `
+                    <tr>
+                        <td>${film.tittel}</td>
+                        <td>
+                            <a href="${film.trailer}">Vis Trailer</td>
+                        <td>
+                            <button class="button" onclick="rediger('${key}')">Endre data</button>
+                        </td>
+                    </tr>
+                `;
+
+            }
+        }
+
+        function registrerFilm(evt) {
+            evt.preventDefault();
+            var film = {
+                tittel: inpTittel.value,
+                trailer: inpTrailer.value
+            };
+            filmer.set(inpID.value, film);
+            visFilmer();
+
+            inpID.value = "";
+            inpTittel.value = "";
+            inpTrailer.value = "";
+        }
+
+        skjema.onsubmit = registrerFilm;
+
+
+    </script>
+
+
+</body>
+</html>
