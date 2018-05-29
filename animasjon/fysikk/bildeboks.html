@@ -30,28 +30,27 @@
         var nr = 0;
         var ramme = document.getElementById("ramme");
 
-
         function visBilde() {
+            ramme.style.width = this.width + "px";
+            ramme.style.height = this.height + "px";
+            ramme.style.left = innerWidth/2 - this.width/2 + "px";
+            ramme.style.backgroundImage = "url(" + bilder[nr] + ")";
+            nr++;
+
+            if(nr >= bilder.length) {
+                nr = 0;
+            }
+        }
+
+        function byttBilde() {
 
             var bilde = new Image();
             bilde.src = bilder[nr];
-            bilde.onload = function() {
-              ramme.style.width = this.width + "px";
-              ramme.style.height = this.height + "px";
-              ramme.style.left = innerWidth/2 - this.width/2 + "px";
-              ramme.style.backgroundImage = "url(" + bilder[nr] + ")";
-              nr++;
-
-                if(nr >= bilder.length) {
-                    nr = 0;
-                }
-
-            };
-
+            bilde.onload = visBilde;
         }
 
-        visBilde();
-        document.onclick = visBilde;
+        document.onclick = byttBilde;
+        byttBilde();
 
     </script>
 

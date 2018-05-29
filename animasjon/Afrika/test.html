@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Animasjon</title>
     <style>
+        * {
+            margin: 0;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
         body {
             min-height: 100vh;
             background-image: url(img1.jpg);
@@ -12,25 +20,63 @@
             background-position: center center;
             transition: 1s;
         }
+
+        header {
+            background-color: black;
+            height: 4rem;
+        }
+
+        #visMeny {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+        }
+
+        #menu {
+            position: absolute;
+            left: -20rem;
+            top: 4rem;
+            width: 20rem;
+            height: calc(100vh - 4rem);
+            background-color: #333;
+            transition: 0.5s;
+        }
+
+        #visMeny:checked ~ #menu {
+            left: 0;
+        }
     </style>
 </head>
 <body>
 
+    <header></header>
+
+    <input type="checkbox" id="visMeny">
+    <nav id="menu"></nav>
+
+
     <script>
 
-        let bilder = ["img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg", "img5.jpg", "img6.jpg"];
+        let bilder = [
+            "https://kode2.github.io/animasjon/Afrika/img1.jpg",
+            "https://kode2.github.io/animasjon/Afrika/img2.jpg",
+            "https://kode2.github.io/animasjon/Afrika/img3.jpg",
+            "https://kode2.github.io/animasjon/Afrika/img4.jpg",
+            "https://kode2.github.io/animasjon/Afrika/img5.jpg",
+            "https://kode2.github.io/animasjon/Afrika/img6.jpg"
+        ];
 
-        let indeks = 1;
+        let bildenummer = 1;
 
         function byttBilde() {
 
-            let bilde = bilder[indeks];
+            let bilde = bilder[bildenummer];
             document.body.style.backgroundImage = `url(${bilde})`;
 
-            indeks++;
+            bildenummer++;
 
-            if(indeks >= 6) {
-                indeks = 0;
+            if(bildenummer >= 6) {
+                bildenummer = 0;
             }
 
         }

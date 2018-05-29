@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rotasjon</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #firkant {
+            width: 200px;
+            height: 200px;
+            background-color: seagreen;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="firkant"></div>
+
+    <script>
+
+        let firkant = document.getElementById("firkant");
+
+        let keyframes = [
+            {transform: "rotate(0)"},
+            {transform: "rotate(1turn)"}
+        ];
+
+        let settings = {
+            duration: 1000,
+            iterations: Infinity
+        };
+
+        let snurr = firkant.animate(keyframes, settings);
+
+        document.onclick = function() {
+            snurr.playbackRate = snurr.playbackRate + 1;
+        }
+
+    </script>
+</body>
+</html>

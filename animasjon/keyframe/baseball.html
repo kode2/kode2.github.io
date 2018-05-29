@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Animasjon av en baseball</title>
+    <style>
+        @keyframes snurr {
+            to {
+                transform: translateX(500px) rotate(1turn);
+            }
+        }
+        .baseball {
+            margin-right: 10px;
+            animation: snurr 2s infinite alternate ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <img class="baseball" src="baseball.png">
+    <img class="baseball" src="baseball.png">
+    <img class="baseball" src="baseball.png">
+    <img class="baseball" src="baseball.png">
+    <img class="baseball" src="baseball.png">
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SVG SHAPE</title>
+    <style>
+        .path {
+            stroke-dasharray: 1100;
+            stroke-dashoffset: 1100;
+            animation: dash 5s linear alternate infinite;
+        }
+
+        @keyframes dash {
+            from {
+                stroke-dashoffset: 1100;
+            }
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+         width="400" height="400" viewBox="0 0 400 400" style="enable-background:new 0 0 400 400;" xml:space="preserve">
+    <path class="path" fill="none" stroke-width="4" stroke="#dd00ff" class="st0" d="M54,137c-3.2,19.7-4.8,50.2,11,78c17,29.9,43.4,38.2,96,62c117.4,53.2,135.1,79.9,156,67
+        c32.3-20,31.3-109.2,25-147c-1.5-9-4.7-23.3,0-41c7.3-27.6,25.4-32.3,25-49c-0.6-24-38.5-41.9-58-48c-34.9-10.9-64.9-0.6-74,3
+        c-10.2,4-33,12.9-49,35c-8.6,11.9-10.5,21.1-19,23c-9.6,2.1-16.4-7.4-35-21c-19.5-14.2-37.6-27.4-51-24C59.2,80.6,54.7,129.1,54,137
+        z"/>
+    </svg>
+
+</body>
+</html>

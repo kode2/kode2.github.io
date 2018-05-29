@@ -1,0 +1,54 @@
+/* Animasjon som flytter element 400 piksler nedover, roterer fra 45
+   grader til 0 grader og skalerer ned fra 160% til 100%  */
+@keyframes fallNed {
+    from {
+        transform: translateY(0) scale(1.6) rotate(45deg);
+    }
+    to {
+        transform: translateY(400px) scale(1) rotate(0deg);
+    }
+}
+#burger {
+    overflow: hidden; /* Så ikke delene skal være synlige utenfor rammen */
+    width: 500px;
+    height: 350px;
+    background-color: #cfd7c6;
+    position: relative;
+    margin: 20px auto;
+}
+#burger > img {
+    position: absolute; /* alle bildene skal ha absolutt posisjonering */
+}
+#bunn {
+    left: 175px;
+    top: -100px;
+    animation-name: fallNed;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+}
+#karbonade {
+    left: 180px;
+    top: -115px;
+    animation: fallNed 2s 0.3s forwards;
+}
+#ost {
+    left: 166px;
+    top: -121px;
+    animation: fallNed 2s 0.6s forwards;
+}
+#midt {
+    left: 178px;
+    top: -132px;
+    animation: fallNed 2s 0.9s forwards;
+}
+#salat {
+    left: 168px;
+    top: -154px;
+    animation: fallNed 2s 1.2s forwards;
+}
+#topp {
+    left: 175px;
+    top: -190px;
+    animation: fallNed 2s 1.5s forwards;
+}

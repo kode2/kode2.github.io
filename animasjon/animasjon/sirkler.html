@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sirkel</title>
+    <style>
+        body {
+            background: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        div {
+            width: 30px;
+            height: 30px;
+            background-color: greenyellow;
+            position: absolute;
+            left: 100px;
+            top: 100px;
+
+        }
+
+        .track {
+            stroke: #ccc;
+        }
+
+        .marker {
+            offset-path: path('M 5 5 m -6, 0 a 6,6 0 1,0 8,0 a 6,6 0 1,0 -8,0');
+            animation: move 3s linear infinite;
+        }
+
+        @keyframes move {
+            100% { motion-offset: 100%;}
+        }
+    </style>
+</head>
+<body>
+
+
+<svg viewbox="0,0 10,10" width="200px" height="200px">
+
+    <!-- the path to be animated along -->
+    <path
+            class="track"
+            fill="none"
+            stroke-width="0.25"
+            d="M 5 5 m -4, 0 a 4,4 0 1,0 8,0 a 4,4 0 1,0 -8,0"
+    ></path>
+
+    <!-- the mover -->
+    <circle class="marker" r="1" fill="orange"></circle>
+
+</svg>
+
+<div class="marker"></div>
+
+</body>
+</html>

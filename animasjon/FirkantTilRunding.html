@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fra firkant til runding</title>
+    <style>
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        @keyframes snurr {
+            to {
+                transform: rotate(1turn) scale(2);
+                border-radius: 50%;
+
+            }
+        }
+
+        #figur {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+            height: 200px;
+            background-color: lightseagreen;
+            animation: snurr 1s infinite paused linear alternate;
+        }
+        #figur:hover {
+            animation-play-state: running;
+        }
+
+        #figur > div {
+            width: 50%;
+            height: 50%;
+            background-color: darkkhaki;
+            animation: snurr 1s infinite paused linear alternate;
+        }
+
+        #figur:hover > div {
+            animation-play-state: running;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="figur">
+        <div></div>
+    </div>
+
+    <script>
+
+    </script>
+</body>
+</html>

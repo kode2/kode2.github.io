@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flex-bokser</title>
+    <link rel="stylesheet" href="stil.css">
+    <style>
+        #bokser {
+            width: 600px;
+            height: 200px;
+            display: flex;
+        }
+        #bokser > div {
+            margin: 2px;
+            background-color: darkkhaki;
+            flex: 1;
+        }
+        #bokser > div:hover {
+            flex: 4;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div id="bokser">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+</body>
+</html>
