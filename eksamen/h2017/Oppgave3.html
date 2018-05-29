@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.css">
     <title>Innlogging</title>
     <style>
         body {
+            max-width: 700px;
+            padding: 10px;
+            margin: auto;
             font-family: sans-serif;
             text-align: center;
         }
@@ -31,14 +35,14 @@
 </head>
 <body>
 
-    <button id="btnOversikt" style="margin:20px;" onclick="visResultat()">
+    <button id="btnOversikt" class="button" onclick="visResultat()">
         TELL OPP STEMMENE
     </button>
 
     <section id="secLoggInn">
         <form id="skjemaLoggInn">
             <input type="password" id="inpPassord" placeholder="passord" required>
-            <button type="submit">Logg Inn</button>
+            <button type="submit" class="button success">Logg Inn</button>
         </form>
     </section>
 
